@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 using System.Xml.Serialization;
 
 namespace DND_Together_neu.Model
@@ -35,6 +36,18 @@ namespace DND_Together_neu.Model
 
             xmlSerializer.Serialize(textWriter, scene);
             textWriter.Close();
+        }
+
+        public static Scene LoadScene(string name)
+        {
+            Scene scene;
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Scene));
+            TextReader textReader = new StreamReader("./Data/" + name + ".xml");
+
+            scene = (Scene)xmlSerializer.Deserialize(textReader);
+            textReader.Close();
+
+            return scene;
         }
     }
 }
