@@ -19,7 +19,7 @@ namespace DND_Together_neu_Test
         [Test]
         public void Test_XmlLoadScene()
         {
-            Scene scene = XML.LoadScene("NUnit Test");
+            Scene scene = XML.LoadScene("Startup_Template");
             Assert.Pass();
         }
     }

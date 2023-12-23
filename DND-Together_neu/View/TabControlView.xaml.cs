@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DND_Together_neu.Model;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -25,6 +26,15 @@ namespace DND_Together_neu.View
         public TabControlView()
         {
             InitializeComponent();
+        }
+
+        public void LoadScene(string name)
+        {
+            Scene scene = XML.LoadScene(name);
+            foreach(Category category in scene.Categories)
+            {
+                
+            }
         }
 
         public void generateStartTabControl()
@@ -61,6 +71,7 @@ namespace DND_Together_neu.View
                 Header = tf_CategoryName.Text,
                 Name = "tab_" + trimCatName,
                 Padding = new Thickness(20,10,20,10),
+                Content = new TabControl()
             };
             tabCategories.Items.Add(newTabItem);
 
@@ -144,12 +155,14 @@ namespace DND_Together_neu.View
             }
         }
 
+
+        // Liste binden?? Oder eher doch nicht??
         private void btn_AddPage_Click(object sender, RoutedEventArgs e)
         {
             // Wenn beide Felder, Titel und Url, nicht leer sind
             if (tf_PageName.Text != "" && tf_PageUrl.Text != "")
             {
-                TabControl currentTabContent = (TabControl)((Grid)((TabItem)tabCategories.SelectedItem).Content).Children[0];
+                TabControl currentTabContent = (TabControl)(((TabItem)tabCategories.SelectedItem).Content);
                 if (currentTabContent != null)
                 {
                     foreach (TabItem page in currentTabContent.Items)
@@ -160,18 +173,19 @@ namespace DND_Together_neu.View
                             return;
                         }
 
-                        string trimPageName = tf_PageName.Text.Replace(" ", "");
-                        TabItem newTabItem = new TabItem
-                        {
-                            Header = tf_PageName.Text,
-                            Name = "tab_" + trimPageName,
-                            Padding = new Thickness(20, 10, 20, 10),
-                        };
-                        currentTabContent.Items.Add(newTabItem);
-
-                        // Textfeld leeren
-                        tf_PageName.Text = "";
                     }
+                    string trimPageName = tf_PageName.Text.Replace(" ", "");
+                    TabItem newTabItem = new TabItem
+                    {
+                        Header = tf_PageName.Text,
+                        Name = "tab_" + trimPageName,
+                        Padding = new Thickness(20, 10, 20, 10),
+                    };
+                    currentTabContent.Items.Add(newTabItem);
+
+                    // Textfeld leeren
+                    tf_PageName.Text = "";
+
                 }
             }
         }

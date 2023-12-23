@@ -1,0 +1,114 @@
+﻿<TabItem Width="250" Header="Roll 20 🎲" Padding="20,10,20,10">
+                <Grid>
+                    <TabControl>
+                        <TabItem Header="Roll 20">
+                            <wpf:WebView2 Source="https://app.roll20.net/editor/setcampaign/16369981"/>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Charaktere 🏹" Padding="20,10,20,10">
+                <Grid>
+                    <TabControl>
+                        <TabItem Header="Chef Alfons (Julian)">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/characters/103562612"/>
+                        </TabItem>
+                        <TabItem Header="Silja Bearfoot (Jonas)">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/characters/113923378"/>
+                        </TabItem>
+                        <TabItem Header="Omir (Sven)">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/characters/113924275"/>
+                        </TabItem>
+                        <TabItem Header="Raziel (Tobi)">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/characters/114622804"/>
+                        </TabItem>
+                        <TabItem Header="Chatverlauf">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/characters/102731928"/>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Abenteuer 🗺" Padding="20,10,20,10">
+                <Grid>
+                    <TabControl>
+                        <TabItem Header="Phandalin">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/sources/doip/running-the-adventure#ExploringPhandalin"/>
+                        </TabItem>
+                        <TabItem Header="Umbrage Hil">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/sources/doip/umbrage-hill"/>
+                        </TabItem>
+                        <TabItem Header="Gnomengarde">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/sources/doip/gnomengarde"/>
+                        </TabItem>
+                        <TabItem Header="Dwarven Excavation">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/sources/doip/dwarven-excavation"/>
+                        </TabItem>
+                        <TabItem Header="Übersetzer">
+                            <wpf:WebView2 Source="https://translate.google.com"/>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Shops 🛒" Padding="20,10,20,10">
+                <Grid>
+                    <TabControl>
+                        <TabItem Header="Barthens Vorräte">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/sources/basic-rules/equipment#OtherAdventuringGear"/>
+                        </TabItem>
+                        <TabItem Header="Löwenschild Händler - Waffen">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/sources/basic-rules/equipment#Weapons"/>
+                        </TabItem>
+                        <TabItem Header="Löwenschild Händler - Rüstungen">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/sources/basic-rules/equipment#ArmorandShields"/>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Stat-Blocks 👾" Padding="20,10,20,10">
+                <Grid>
+                    <TabControl>
+                        <TabItem Header="Ork">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/monsters/16972-orc"/>
+                        </TabItem>
+                        <TabItem Header="Manticore">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/monsters/16951-manticore"/>
+                        </TabItem>
+                        <TabItem Header="Mimic">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/monsters/16957-mimic"/>
+                        </TabItem>
+                        <TabItem Header="Felsengnom Einsiedler">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/monsters/338614-rock-gnome-recluse"/>
+                        </TabItem>
+                        <TabItem Header="Ochre Jellies">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/monsters/16967-ochre-jelly"/>
+                        </TabItem>
+                        <TabItem Header="Commoner">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/monsters/16829-commoner"/>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Suchen 🔍" Padding="20,10,20,10">
+                <Grid>
+                    <TabControl>
+                        <TabItem Header="Basic Rules">
+                            <wpf:WebView2 Source="https://www.dndbeyond.com/sources/basic-rules/adventuring"/>
+                        </TabItem>
+                        <TabItem Header="Suche 1">
+                            <wpf:WebView2 Source="https://duckduckgo.com/"/>
+                        </TabItem>
+                        <TabItem Header="Suche 2">
+                            <wpf:WebView2 Source="https://duckduckgo.com/"/>
+                        </TabItem>
+                        <TabItem Header="Suche 3">
+                            <wpf:WebView2 Source="https://duckduckgo.com/"/>
+                        </TabItem>
+                        <TabItem Header="Suche 4">
+                            <wpf:WebView2 Source="https://duckduckgo.com/"/>
+                        </TabItem>
+                        <TabItem Header="Suche 5">
+                            <wpf:WebView2 Source="https://duckduckgo.com/"/>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
