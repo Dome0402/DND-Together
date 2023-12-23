@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Scene>
+	<Categories>
+		<Category>
+			<Name>Roll 20 🎲</Name>
+			<Pages>
+				<Page>
+					<Name>Roll 20</Name>
+					<Url>https://app.roll20.net/editor/setcampaign/16369981</Url>
+				</Page>
+			</Pages>
+		</Category>
+		<Category>
+			<Name>Charaktere 🏹</Name>
+			<Pages>
+				<Page>
+					<Name>Chef Alfons (Julian)</Name>
+					<Url>https://www.dndbeyond.com/characters/103562612</Url>
+				</Page>
+				<Page>
+					<Name>Silja Bearfoot (Jonas)</Name>
+					<Url>https://www.dndbeyond.com/characters/113923378</Url>
+				</Page>
+				<Page>
+					<Name>Omir (Sven)</Name>
+					<Url>https://www.dndbeyond.com/characters/113924275</Url>
+				</Page>
+				<Page>
+					<Name>Raziel (Tobi)</Name>
+					<Url>https://www.dndbeyond.com/characters/114622804</Url>
+				</Page>
+				<Page>
+					<Name>Chatverlauf</Name>
+					<Url>https://www.dndbeyond.com/characters/102731928</Url>
+				</Page>
+			</Pages>
+		</Category>
+		<Category>
+			<Name>Abenteuer 🗺</Name>
+			<Pages>
+				<Page>
+					<Name>Phandalin</Name>
+					<Url>https://www.dndbeyond.com/sources/doip/running-the-adventure#ExploringPhandalin</Url>
+				</Page>
+				<Page>
+					<Name>Umbrage Hil</Name>
+					<Url>https://www.dndbeyond.com/sources/doip/umbrage-hill</Url>
+				</Page>
+				<Page>
+					<Name>Gnomengarde</Name>
+					<Url>https://www.dndbeyond.com/sources/doip/gnomengarde</Url>
+				</Page>
+				<Page>
+					<Name>Dwarven Excavation</Name>
+					<Url>https://www.dndbeyond.com/sources/doip/dwarven-excavation</Url>
+				</Page>
+				<Page>
+					<Name>Übersetzer</Name>
+					<Url>https://translate.google.com</Url>
+				</Page>
+			</Pages>
+		</Category>
+		<Category>
+			<Name>Shops 🛒</Name>
+			<Pages>
+				<Page>
+					<Name>Barthens Vorräte</Name>
+					<Url>https://www.dndbeyond.com/sources/basic-rules/equipment#OtherAdventuringGear</Url>
+				</Page>
+				<Page>
+					<Name>Löwenschild Händler - Waffen</Name>
+					<Url>https://www.dndbeyond.com/sources/basic-rules/equipment#Weapons</Url>
+				</Page>
+				<Page>
+					<Name>Löwenschild Händler - Rüstungen</Name>
+					<Url>https://www.dndbeyond.com/sources/basic-rules/equipment#ArmorandShields</Url>
+				</Page>
+			</Pages>
+		</Category>
+		<Category>
+			<Name>Stat-Blocks 👾</Name>
+			<Pages>
+				<Page>
+					<Name>Ork</Name>
+					<Url>https://www.dndbeyond.com/monsters/16972-orc</Url>
+				</Page>
+				<Page>
+					<Name>Manticore</Name>
+					<Url>https://www.dndbeyond.com/monsters/16951-manticore</Url>
+				</Page>
+				<Page>
+					<Name>Mimic</Name>
+					<Url>https://www.dndbeyond.com/monsters/16957-mimic</Url>
+				</Page>
+				<Page>
+					<Name>Felsengnom Einsiedler</Name>
+					<Url>https://www.dndbeyond.com/monsters/338614-rock-gnome-recluse</Url>
+				</Page>
+				<Page>
+					<Name>Ochre Jellies</Name>
+					<Url>https://www.dndbeyond.com/monsters/16967-ochre-jelly</Url>
+				</Page>
+				<Page>
+					<Name>Commoner</Name>
+					<Url>https://www.dndbeyond.com/monsters/16829-commoner</Url>
+				</Page>
+			</Pages>
+		</Category>
+		<Category>
+			<Name>Suchen 🔍</Name>
+			<Pages>
+				<Page>
+					<Name>Basic Rules</Name>
+					<Url>https://www.dndbeyond.com/sources/basic-rules/adventuring</Url>
+				</Page>
+				<Page>
+					<Name>D&amp;D Beyond 1</Name>
+					<Url>https://www.dndbeyond.com/</Url>
+				</Page>
+				<Page>
+					<Name>D&amp;D Beyond 2</Name>
+					<Url>https://www.dndbeyond.com/</Url>
+				</Page>
+				<Page>
+					<Name>Suche 1</Name>
+					<Url>https://duckduckgo.com</Url>
+				</Page>
+				<Page>
+					<Name>Suche 2</Name>
+					<Url>https://duckduckgo.com</Url>
+				</Page>
+				<Page>
+					<Name>Suche 3</Name>
+					<Url>https://duckduckgo.com</Url>
+				</Page>
+			</Pages>
+		</Category>
+	</Categories>
+</Scene>
