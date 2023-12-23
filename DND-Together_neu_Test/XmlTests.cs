@@ -1,3 +1,5 @@
+using DND_Together_neu.Model;
+
 namespace DND_Together_neu_Test
 {
     public class Tests
@@ -8,8 +10,9 @@ namespace DND_Together_neu_Test
         }
 
         [Test]
-        public void Test1()
+        public void Test_XmlSaveScene()
         {
+            XML.SaveScene(Consts.scene);
             Assert.Pass();
         }
     }
