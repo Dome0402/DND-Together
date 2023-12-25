@@ -314,7 +314,7 @@ namespace DND_Together_neu.View
 
         private void menuClose_Click(object sender, RoutedEventArgs e)
         {
-
+            Application.Current.Shutdown();
         }
 
         private void menuSave_Click(object sender, RoutedEventArgs e)
