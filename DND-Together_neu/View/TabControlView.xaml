@@ -10,13 +10,32 @@
         <Grid.ColumnDefinitions>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <TabControl x:Name="tabCategories" TabStripPlacement="Left" FontSize="16" Loaded="tabCategories_Loaded">
+        <Menu>
+            <MenuItem Header="Datei">
+                <MenuItem Name="menuOpen" Header="Öffnen" Click="menuOpen_Click"/>
+                <MenuItem Name="menuSave" Header="Speichern" Click="menuSave_Click"/>
+                <Separator/>
+                <MenuItem Name="menuClose" Header="Beenden" Click="menuClose_Click"/>
+            </MenuItem>
+            <MenuItem Header="Bearbeiten">
+
+            </MenuItem>
+            <MenuItem Header="Ansicht">
+
+            </MenuItem>
+            <MenuItem Header="Hilfe">
+
+            </MenuItem>
+        </Menu>
+        
+        <TabControl Grid.Row="1" x:Name="tabCategories" TabStripPlacement="Left" FontSize="16" Loaded="tabCategories_Loaded">
             
         </TabControl>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="50"/>
@@ -29,7 +48,7 @@
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Name="tf_CategoryName" Grid.Column="0" Margin="2" FontSize="16" VerticalContentAlignment="Center"/>
+                <TextBox Name="tf_CategoryName" ToolTip="Name der Kategorie" Grid.Column="0" Margin="2" FontSize="16" VerticalContentAlignment="Center" Text="Kategorie"/>
                 <Button Name="btn_AddCategory" Click="btn_AddCategory_Click" Content="+" Grid.Column="1" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
                 <Button Name="btn_EditCategory" Click="btn_EditCategory_Click" Content="⚙" Grid.Column="2" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
                 <Button Name="btn_DeleteCategory" Click="btn_DeleteCategory_Click" Content="x" Grid.Column="3" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
@@ -45,8 +64,8 @@
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
                 
-                <TextBox Name="tf_PageName" Text="Seitentitel" Grid.Column="0" Margin="2" FontSize="16" VerticalContentAlignment="Center"/>
-                <TextBox Name="tf_PageUrl" Text="URL" Grid.Column="1" Margin="2" FontSize="16" VerticalContentAlignment="Center"/>
+                <TextBox Name="tf_PageName" ToolTip="Name der Seite" Text="Seitentitel" Grid.Column="0" Margin="2" FontSize="16" VerticalContentAlignment="Center"/>
+                <TextBox Name="tf_PageUrl" ToolTip="URL der Seite" Text="URL" Grid.Column="1" Margin="2" FontSize="16" VerticalContentAlignment="Center"/>
                 <Button Name="btn_AddPage" Click="btn_AddPage_Click" Content="+" Grid.Column="2" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
                 <Button Name="btn_EditPage" Click="btn_EditPage_Click" Content="⚙" Grid.Column="3" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
                 <Button Name="btn_DeletePage" Click="btn_DeletePage_Click" Content="x" Grid.Column="4" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>

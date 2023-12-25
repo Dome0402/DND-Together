@@ -1,4 +1,6 @@
 ﻿using DND_Together_neu.Model;
+using Microsoft.Web.WebView2.WinForms;
+using Microsoft.Web.WebView2.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -77,6 +79,8 @@ namespace DND_Together_neu.View
 
             // Textfeld leeren
             tf_CategoryName.Text = "";
+            if (tabCategories.SelectedItem == null)
+                tabCategories.SelectedIndex = 0;
         }
 
         TabItem tabEdit;
@@ -157,10 +161,10 @@ namespace DND_Together_neu.View
 
 
         // Liste binden?? Oder eher doch nicht??
-        private void btn_AddPage_Click(object sender, RoutedEventArgs e)
+        private async void btn_AddPage_Click(object sender, RoutedEventArgs e)
         {
             // Wenn beide Felder, Titel und Url, nicht leer sind
-            if (tf_PageName.Text != "" && tf_PageUrl.Text != "")
+            if (tf_PageName.Text != "" && tf_PageUrl.Text != "" && tabCategories.SelectedItem != null)
             {
                 TabControl currentTabContent = (TabControl)(((TabItem)tabCategories.SelectedItem).Content);
                 if (currentTabContent != null)
@@ -179,15 +183,35 @@ namespace DND_Together_neu.View
                     {
                         Header = tf_PageName.Text,
                         Name = "tab_" + trimPageName,
-                        Padding = new Thickness(20, 10, 20, 10),
                     };
+
+                    var webView = new Microsoft.Web.WebView2.Wpf.WebView2();
+                    webView.Initialized += WebView_Initialized;
+
+                    
+                    webView.Source = new Uri(tf_PageUrl.Text);
+                    newTabItem.Content = webView;
+                    
+
                     currentTabContent.Items.Add(newTabItem);
 
                     // Textfeld leeren
-                    tf_PageName.Text = "";
+
+                    if(currentTabContent.SelectedItem ==  null)
+                        currentTabContent.SelectedIndex = 0;
 
                 }
             }
+        }
+
+        private async void WebView_Initialized(object? sender, EventArgs e)
+        {
+            Microsoft.Web.WebView2.Wpf.WebView2 webView = (Microsoft.Web.WebView2.Wpf.WebView2)sender;
+            await webView.EnsureCoreWebView2Async(null);
+            
+            webView.Source = new Uri(tf_PageUrl.Text);
+            tf_PageName.Text = "";
+            tf_PageUrl.Text = "";
         }
 
         private void btn_EditPage_Click(object sender, RoutedEventArgs e)
@@ -196,6 +220,21 @@ namespace DND_Together_neu.View
         }
 
         private void btn_DeletePage_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void menuClose_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void menuSave_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void menuOpen_Click(object sender, RoutedEventArgs e)
         {
 
         }
