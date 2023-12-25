@@ -202,8 +202,7 @@ namespace DND_Together_neu.View
 
                     // Textfeld leeren
 
-                    if (currentTabContent.SelectedItem == null)
-                        currentTabContent.SelectedIndex = 0;
+                    currentTabContent.SelectedItem = newTabItem;
 
                 }
             }
@@ -295,7 +294,22 @@ namespace DND_Together_neu.View
 
         private void btn_DeletePage_Click(object sender, RoutedEventArgs e)
         {
+            TabControl currentTabControl = ((TabControl)(((TabItem)tabCategories.SelectedItem).Content));
+            TabItem deletePageTab = (TabItem)currentTabControl.SelectedItem;
 
+            if (MessageBox.Show("Sicher, dass die Seite \"" + deletePageTab.Header.ToString() + "\" gelöscht werden soll?", "Achtung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                Debug.Print("Lösche Seite \"" + deletePageTab.Header.ToString() + "\"...");
+                foreach(TabItem item in currentTabControl.Items)
+                {
+                    if(item.Header.ToString() == deletePageTab.Header.ToString())
+                    {
+                        currentTabControl.Items.Remove(item);
+                        Debug.Print("Seite gelöscht.");
+                        return;
+                    }
+                }
+            }
         }
 
         private void menuClose_Click(object sender, RoutedEventArgs e)
