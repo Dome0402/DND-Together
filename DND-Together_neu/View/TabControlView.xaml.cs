@@ -319,7 +319,26 @@ namespace DND_Together_neu.View
 
         private void menuSave_Click(object sender, RoutedEventArgs e)
         {
-
+            Scene scene = new Scene();
+            foreach(TabItem category in tabCategories.Items)
+            {
+                // Create new Category
+                Category cat = new Category()
+                {
+                    Name = category.Name,
+                };
+                // Add pages
+                foreach(TabItem page in ((TabControl)(category.Content)).Items)
+                {
+                    cat.AddPage(new Model.Page()
+                    {
+                        Title = page.Header.ToString(),
+                        Url = ((WebView2)page.Content).Source.ToString()
+                    });
+                }
+                scene.AddCategory(cat);
+            }
+            XML.SaveScene(scene);
         }
 
         private void menuOpen_Click(object sender, RoutedEventArgs e)
