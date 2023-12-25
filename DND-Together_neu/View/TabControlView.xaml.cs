@@ -1,5 +1,4 @@
 ﻿using DND_Together_neu.Model;
-using Microsoft.Web.WebView2.WinForms;
 using Microsoft.Web.WebView2.Wpf;
 using System;
 using System.Collections.Generic;
@@ -83,18 +82,18 @@ namespace DND_Together_neu.View
                 tabCategories.SelectedIndex = 0;
         }
 
-        TabItem tabEdit;
+        TabItem tabCategoryEdit;
         private void btn_EditCategory_Click(object sender, RoutedEventArgs e)
         {
             // Wenn noch kein Tab editiert wird
-            if(tabEdit == null)
+            if(tabCategoryEdit == null)
             {
-                tabEdit = (TabItem)tabCategories.SelectedItem;
+                tabCategoryEdit = (TabItem)tabCategories.SelectedItem;
                 // Alle anderen Tabs deaktivieren
                 foreach (TabItem category in tabCategories.Items)
                 {
                     // Alle Tabs, außer dem zzt ausgewählten Tab, deaktivieren
-                    if (category.Header.ToString() != tabEdit.Header.ToString())
+                    if (category.Header.ToString() != tabCategoryEdit.Header.ToString())
                     {
                         // Tab deaktivieren
                         category.IsEnabled = false;
@@ -103,6 +102,9 @@ namespace DND_Together_neu.View
                 // Alle anderen Buttons deaktivieren
                 btn_AddCategory.IsEnabled = false;
                 btn_DeleteCategory.IsEnabled = false;
+                btn_AddPage.IsEnabled = false;
+                btn_DeletePage.IsEnabled = false;
+                btn_EditPage.IsEnabled = false;
 
                 // Das Textfeld fokusieren
                 tf_CategoryName.Focus();
@@ -111,12 +113,12 @@ namespace DND_Together_neu.View
                 btn_EditCategory.Content = "✓";
 
                 // In das Textfeld den aktuellen Text des Tabs einfügen
-                tf_CategoryName.Text = tabEdit.Header.ToString();
+                tf_CategoryName.Text = tabCategoryEdit.Header.ToString();
             }
             // Wenn gerade ein Tab editiert wird, alles wieder rückgängig machen
             else
             {
-                tabEdit = (TabItem)tabCategories.SelectedItem;
+                tabCategoryEdit = (TabItem)tabCategories.SelectedItem;
                 // Alle Tabs aktivieren
                 foreach (TabItem category in tabCategories.Items)
                 {
@@ -125,18 +127,21 @@ namespace DND_Together_neu.View
                 // Alle anderen Buttons aktivieren
                 btn_AddCategory.IsEnabled = true;
                 btn_DeleteCategory.IsEnabled = true;
+                btn_AddPage.IsEnabled = true;
+                btn_DeletePage.IsEnabled = true;
+                btn_EditPage.IsEnabled = true;
 
                 // Den Text des Edit-Buttons zu einem Zahnrad ändern
                 btn_EditCategory.Content = "⚙";
 
                 // Den Text vom Textfeld in den Tab übertragen
-                tabEdit.Header = tf_CategoryName.Text;
+                tabCategoryEdit.Header = tf_CategoryName.Text;
 
                 // Das Textfeld leeren
                 tf_CategoryName.Text = "";
 
                 // Editierter Tab leeren
-                tabEdit = null;
+                tabCategoryEdit = null;
             }
             // (optional, TODO) Geschriebener Text live mit dem Text auf dem Tab ändern
         }
@@ -161,7 +166,7 @@ namespace DND_Together_neu.View
 
 
         // Liste binden?? Oder eher doch nicht??
-        private async void btn_AddPage_Click(object sender, RoutedEventArgs e)
+        private void btn_AddPage_Click(object sender, RoutedEventArgs e)
         {
             // Wenn beide Felder, Titel und Url, nicht leer sind
             if (tf_PageName.Text != "" && tf_PageUrl.Text != "" && tabCategories.SelectedItem != null)
@@ -185,19 +190,19 @@ namespace DND_Together_neu.View
                         Name = "tab_" + trimPageName,
                     };
 
-                    var webView = new Microsoft.Web.WebView2.Wpf.WebView2();
+                    var webView = new WebView2();
                     webView.Initialized += WebView_Initialized;
 
-                    
+
                     webView.Source = new Uri(tf_PageUrl.Text);
                     newTabItem.Content = webView;
-                    
+
 
                     currentTabContent.Items.Add(newTabItem);
 
                     // Textfeld leeren
 
-                    if(currentTabContent.SelectedItem ==  null)
+                    if (currentTabContent.SelectedItem == null)
                         currentTabContent.SelectedIndex = 0;
 
                 }
@@ -206,7 +211,7 @@ namespace DND_Together_neu.View
 
         private async void WebView_Initialized(object? sender, EventArgs e)
         {
-            Microsoft.Web.WebView2.Wpf.WebView2 webView = (Microsoft.Web.WebView2.Wpf.WebView2)sender;
+            WebView2 webView = (WebView2)sender;
             await webView.EnsureCoreWebView2Async(null);
             
             webView.Source = new Uri(tf_PageUrl.Text);
@@ -214,9 +219,78 @@ namespace DND_Together_neu.View
             tf_PageUrl.Text = "";
         }
 
+        TabItem tabPageEdit;
         private void btn_EditPage_Click(object sender, RoutedEventArgs e)
         {
+            TabControl currentTabContent = (TabControl)(((TabItem)tabCategories.SelectedItem).Content);
+            if(currentTabContent.SelectedItem != null)
+                if (tabPageEdit == null)
+                {
+                    tabPageEdit = (TabItem)currentTabContent.SelectedItem;
 
+                    foreach(TabItem tabItem in currentTabContent.Items)
+                    {
+                        if(tabItem.Header.ToString() != tabPageEdit.Header.ToString())
+                        {
+                            tabItem.IsEnabled = false;
+                        }
+                    }
+
+                    // Alle anderen Buttons deaktivieren
+                    btn_AddCategory.IsEnabled = false;
+                    btn_EditCategory.IsEnabled = false;
+                    btn_DeleteCategory.IsEnabled = false;
+                    btn_AddPage.IsEnabled = false;
+                    btn_DeletePage.IsEnabled = false;
+
+
+                    // Das Textfeld fokusieren
+                    tf_PageUrl.Focus();
+
+                    // Den Text des Edit-Buttons zu einem Haken ändern
+                    btn_EditPage.Content = "✓";
+
+                    // In das Textfeld den aktuellen Text des Tabs einfügen
+                    tf_PageName.Text = tabPageEdit.Header.ToString();
+                    tf_PageUrl.Text = ((WebView2)tabPageEdit.Content).Source.ToString();
+                }
+                else
+                {
+                    try
+                    {
+                        // URL versuchen als Quelle der WebView zu setzen
+                        ((WebView2)tabPageEdit.Content).Source = new Uri(tf_PageUrl.Text);
+                    }
+                    catch (UriFormatException ex)
+                    {
+                        MessageBox.Show("Es muss eine gültige URL eingegeben werden.");
+                        return;
+                    }
+                    tabPageEdit = (TabItem)currentTabContent.SelectedItem;
+                    // Alle Tabs aktivieren
+                    foreach (TabItem page in currentTabContent.Items)
+                    {
+                        page.IsEnabled = true;
+                    }
+                    // Alle anderen Buttons aktivieren
+                    btn_AddCategory.IsEnabled = true;
+                    btn_EditCategory.IsEnabled = true;
+                    btn_DeleteCategory.IsEnabled = true;
+                    btn_AddPage.IsEnabled = true;
+                    btn_DeletePage.IsEnabled = true;
+
+                    // Den Text des Edit-Buttons zu einem Zahnrad ändern
+                    btn_EditPage.Content = "⚙";
+
+                    // Den Text vom Textfeld in den Tab übertragen
+                    tabPageEdit.Header = tf_PageName.Text;
+
+                    // Editierter Tab leeren
+                    tabPageEdit = null;
+
+                    tf_PageName.Text = "";
+                    tf_PageUrl.Text = "";
+                }
         }
 
         private void btn_DeletePage_Click(object sender, RoutedEventArgs e)
