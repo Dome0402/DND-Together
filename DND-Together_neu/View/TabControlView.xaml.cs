@@ -4,6 +4,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -16,7 +17,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DND_Together_neu.View
 {
@@ -30,61 +30,7 @@ namespace DND_Together_neu.View
         {
             InitializeComponent();
         }
-
-        public void LoadScene(string name)
-        {
-            try
-            {
-                if((tabCategories.Items) != null)
-                {
-                    foreach (TabItem item in tabCategories.Items)
-                    {
-                        TabControl tabControlPages = (TabControl)(((TabItem)tabCategories.SelectedItem).Content);
-                        if(tabControlPages != null)
-                        {
-                            foreach(TabItem page in tabControlPages.Items)
-                            {
-                                // Gibt Speicher von WebView2 frei (hoffentlich)
-                                (page.Content as WebView2).Dispose();
-                            }
-                            tabControlPages.Items.Clear();
-                        }
-                    }
-                }
-                
-                tabCategories.Items.Clear();
-                Scene scene = XML.LoadScene(name);
-                foreach (Category category in scene.Categories)
-                {
-                    TabItem tab = new TabItem();
-                    tab.Header = category.Name;
-                    tab.Padding = new Thickness(20, 10, 20, 10);
-                    tabCategories.Items.Add(tab);
-                    tabCategories.SelectedItem = tab;
-
-                    tab.Content = new TabControl();
-
-
-                    foreach(Model.Page page in category.Pages)
-                    {
-                        TabItem tabPage = new TabItem();
-                        tabPage.Header = page.Title;
-                        //
-
-                        var webView = new WebView2();
-                        Initialize_WebView(webView, new Uri(page.Url));
-
-                        tabPage.Content = webView;
-
-                        ((TabControl)tab.Content).Items.Add(tabPage);
-                    }
-
-                }
-            }catch (Exception e)
-            {
-                MessageBox.Show("Fehler beim Laden der Szene aufgetreten.\n" + e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+        Scene scene = new Scene();
 
         public void generateStartTabControl()
         {
@@ -118,16 +64,21 @@ namespace DND_Together_neu.View
             TabItem newTabItem = new TabItem
             {
                 Header = tf_CategoryName.Text,
-                Name = "tab_" + trimCatName,
                 Padding = new Thickness(20,10,20,10),
                 Content = new TabControl()
             };
             tabCategories.Items.Add(newTabItem);
+            scene.AddCategory(new Category()
+            {
+                Name = newTabItem.Header.ToString(),
+                Pages = []
+            });
 
             // Textfeld leeren
             tf_CategoryName.Text = "";
             if (tabCategories.SelectedItem == null)
                 tabCategories.SelectedIndex = 0;
+            
         }
 
         TabItem tabCategoryEdit;
@@ -169,7 +120,7 @@ namespace DND_Together_neu.View
                 // Wenn gerade ein Tab editiert wird, alles wieder rückgängig machen
                 else
                 {
-                    tabCategoryEdit = (TabItem)tabCategories.SelectedItem;
+                    // tabCategoryEdit = (TabItem)tabCategories.SelectedItem;
                     // Alle Tabs aktivieren
                     foreach (TabItem category in tabCategories.Items)
                     {
@@ -184,6 +135,10 @@ namespace DND_Together_neu.View
 
                     // Den Text des Edit-Buttons zu einem Zahnrad ändern
                     btn_EditCategory.Content = "⚙";
+
+                    
+                    scene.EditCategory(tabCategoryEdit.Header.ToString(), tf_CategoryName.Text);
+
 
                     // Den Text vom Textfeld in den Tab übertragen
                     tabCategoryEdit.Header = tf_CategoryName.Text;
@@ -212,6 +167,9 @@ namespace DND_Together_neu.View
                         {
                             Debug.Print(category.Header.ToString());
                             tabCategories.Items.Remove(category);
+
+                            scene.RemoveCategory(category.Header.ToString());
+
                             return;
                         }
                     }
@@ -238,11 +196,9 @@ namespace DND_Together_neu.View
                             return;
                         }
                     }
-                    string trimPageName = tf_PageName.Text.Replace(" ", "");
                     TabItem newTabItem = new()
                     {
                         Header = tf_PageName.Text,
-                        Name = trimPageName,
                     };
 
                     var webView = new WebView2();
@@ -250,10 +206,15 @@ namespace DND_Together_neu.View
                     Initialize_WebView(webView, new Uri(tf_PageUrl.Text));
 
                     newTabItem.Content = webView;
-                    
 
 
                     currentTabContent.Items.Add(newTabItem);
+
+                    scene.Categories.Find(c => c.Name == ((TabItem)tabCategories.SelectedItem).Header).AddPage(new Model.Page()
+                    {
+                        Title = tf_PageName.Text,
+                        Url = tf_PageUrl.Text
+                    });
 
                     // Textfeld leeren
 
@@ -262,10 +223,10 @@ namespace DND_Together_neu.View
                 }
             }
         }
-        private async void Initialize_WebView(WebView2 webView, Uri url)
+        private void Initialize_WebView(WebView2 webView, Uri url)
         {
-            await webView.EnsureCoreWebView2Async(null);
-
+            webView.EnsureCoreWebView2Async(null);
+            
             webView.Source = url;
         }
 
@@ -318,11 +279,11 @@ namespace DND_Together_neu.View
                             MessageBox.Show("Es muss eine gültige URL eingegeben werden.");
                             return;
                         }
-                        tabPageEdit = (TabItem)currentTabContent.SelectedItem;
+                        // tabPageEdit = (TabItem)currentTabContent.SelectedItem;
                         // Alle Tabs aktivieren
-                        foreach (TabItem page in currentTabContent.Items)
+                        foreach (TabItem p in currentTabContent.Items)
                         {
-                            page.IsEnabled = true;
+                            p.IsEnabled = true;
                         }
                         // Alle anderen Buttons aktivieren
                         btn_AddCategory.IsEnabled = true;
@@ -334,14 +295,42 @@ namespace DND_Together_neu.View
                         // Den Text des Edit-Buttons zu einem Zahnrad ändern
                         btn_EditPage.Content = "⚙";
 
+                        string oldPageName = tabPageEdit.Header.ToString();
+                        string newPageName = tf_PageName.Text;
+                        string newPageUrl = tf_PageUrl.Text;
+
                         // Den Text vom Textfeld in den Tab übertragen
                         tabPageEdit.Header = tf_PageName.Text;
 
-                        // Editierter Tab leeren
-                        tabPageEdit = null;
+                        //((TabItem)(((TabControl)(((TabItem)(tabCategories.SelectedItem)).Content)).SelectedItem)).Header = tf_PageName.Text;
+
+                        //Application.Current.Dispatcher.Invoke(() =>{tabPageEdit.Header = tf_PageName.Text;});
+                        //scene.Categories.Find(c => c.Name == ((TabItem)tabCategories.SelectedItem).Header).Pages));
+
 
                         tf_PageName.Text = "";
                         tf_PageUrl.Text = "";
+
+                        // Editierter Tab leeren
+                        tabPageEdit = null;
+                        Model.Page page;
+                        // Ändere den Name der Seite in der globalen Scene "scene"
+                        foreach(Category cat in scene.Categories)
+                        {
+                            if(cat.Name == ((TabItem)tabCategories.SelectedItem).Header.ToString())
+                            {
+                                foreach(Model.Page p in cat.Pages)
+                                {
+                                    if(p.Title == oldPageName)
+                                    {
+                                        p.Title = newPageName;
+                                        p.Url = newPageUrl;
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
                     }
             }
         }
@@ -361,6 +350,25 @@ namespace DND_Together_neu.View
                         if (item.Header.ToString() == deletePageTab.Header.ToString())
                         {
                             currentTabControl.Items.Remove(item);
+
+                            // Ändere den Name der Seite in der globalen Scene "scene"
+                            string oldPageName = item.Header.ToString();
+                            foreach (Category cat in scene.Categories)
+                            {
+                                if (cat.Name == ((TabItem)tabCategories.SelectedItem).Header.ToString())
+                                {
+                                    foreach (Model.Page p in cat.Pages)
+                                    {
+                                        if (p.Title == oldPageName)
+                                        {
+                                            cat.RemovePage(p);
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+
                             Debug.Print("Seite gelöscht.");
                             return;
                         }
@@ -374,39 +382,105 @@ namespace DND_Together_neu.View
             Application.Current.Shutdown();
         }
 
-        private void menuSave_Click(object sender, RoutedEventArgs e)
+        private async void menuSave_Click(object sender, RoutedEventArgs e)
         {
-            Scene scene = new Scene();
-            foreach(TabItem category in tabCategories.Items)
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "DnD-Together Szenen(*.dndts)|*.dndts";
+            if(saveFileDialog.ShowDialog() == true)
             {
-                // Create new Category
-                Category cat = new Category()
+                Scene scene = new Scene();
+
+                scene.Name = Path.GetFileNameWithoutExtension(saveFileDialog.SafeFileName);
+                foreach (TabItem category in tabCategories.Items)
                 {
-                    Name = category.Name,
-                };
-                // Add pages
-                foreach(TabItem page in ((TabControl)(category.Content)).Items)
-                {
-                    cat.AddPage(new Model.Page()
+                    // Create new Category
+                    Category cat = new Category()
                     {
-                        Title = page.Header.ToString(),
-                        Url = ((WebView2)page.Content).Source.ToString()
-                    });
+                        Name = category.Header.ToString(),
+                    };
+                    // Add pages
+                    foreach (TabItem page in ((TabControl)(category.Content)).Items)
+                    {
+                        cat.AddPage(new Model.Page()
+                        {
+                            Title = page.Header.ToString(),
+                            Url = ((WebView2)page.Content).Source.ToString()
+                        });
+                    }
+                    scene.AddCategory(cat);
                 }
-                scene.AddCategory(cat);
+                XML.SaveScene(scene);
             }
-            XML.SaveScene(scene);
         }
+
 
         private void menuOpen_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "DnD-Together Szenen(*.dndt.xml)|*.dndt.xml";
+            openFileDialog.Filter = "DnD-Together Szenen(*.dndts)|*.dndts";
             openFileDialog.DefaultDirectory = System.IO.Directory.GetCurrentDirectory();
             if (openFileDialog.ShowDialog() == true)
             {
                 LoadScene(openFileDialog.FileName);
             }
         }
+
+        public void LoadScene(string path)
+        {
+            try
+            {
+                if ((tabCategories.Items) != null)
+                {
+                    foreach (TabItem item in tabCategories.Items)
+                    {
+                        TabControl tabControlPages = (TabControl)(((TabItem)tabCategories.SelectedItem).Content);
+                        if (tabControlPages != null)
+                        {
+                            foreach (TabItem page in tabControlPages.Items)
+                            {
+                                // Gibt Speicher von WebView2 frei (hoffentlich)
+                                (page.Content as WebView2).Dispose();
+                            }
+                            tabControlPages.Items.Clear();
+                        }
+                    }
+                    tabCategories.Items.Clear();
+                }
+
+
+                scene = XML.LoadScene(path);
+                foreach (Category category in scene.Categories)
+                {
+                    TabItem tab = new TabItem();
+                    tab.Header = category.Name;
+                    tab.Padding = new Thickness(20, 10, 20, 10);
+                    tabCategories.Items.Add(tab);
+                    tabCategories.SelectedItem = tab;
+
+                    tab.Content = new TabControl();
+
+
+                    foreach (Model.Page page in category.Pages)
+                    {
+                        TabItem tabPage = new TabItem();
+                        tabPage.Header = page.Title;
+                        //
+
+                        var webView = new WebView2();
+                        Initialize_WebView(webView, new Uri(page.Url));
+
+                        tabPage.Content = webView;
+
+                        ((TabControl)tab.Content).Items.Add(tabPage);
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Fehler beim Laden der Szene aufgetreten.\n" + e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
     }
 }

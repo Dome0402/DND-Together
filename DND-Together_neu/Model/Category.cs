@@ -12,7 +12,7 @@ namespace DND_Together_neu.Model
     [Serializable]
     public class Category
     {
-        [XmlElement("Name")]
+        [XmlElement("CatName")]
         public string Name;
 
         [XmlArray("Pages")]
@@ -79,6 +79,19 @@ namespace DND_Together_neu.Model
                 return;
             }
             Pages.Insert(index, page);
+        }
+
+        public void EditPage(string pageName, Page newPage)
+        {
+            foreach (Page page in Pages)
+            {
+                if (page.Title.Equals(pageName))
+                {
+                    page.Title = newPage.Title;
+                    page.Url = newPage.Url;
+                    return;
+                }
+            }
         }
     }
 }

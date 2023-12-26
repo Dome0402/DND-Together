@@ -43,14 +43,17 @@ namespace DND_Together_neu.Model
         /// Removes a specific Category from the List
         /// </summary>
         /// <param name="category">Category to be removed</param>
-        public void RemoveCategory(Category category)
+        public void RemoveCategory(string category)
         {
-            if(Categories.Contains(category))
+            foreach(Category cat in Categories)
             {
-                Categories.Remove(category);
-                return;
+                if(cat.Name == category)
+                {
+                    Categories.Remove(cat);
+                    return;
+                }
             }
-            MessageBox.Show("Eine Kategorie mit dem Titel \"" + category.Name + "\" existiert nicht.", "Achtung", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("Eine Kategorie mit dem Titel \"" + category + "\" existiert nicht.", "Achtung", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         public void InsertCategory(Category category, int index)
@@ -61,6 +64,17 @@ namespace DND_Together_neu.Model
                 return;
             }
             Categories.Insert(index, category);
+        }
+
+        public void EditCategory(string oldName, string newName)
+        {
+            foreach(Category category in Categories)
+            {
+                if (category.Name.Equals(oldName))
+                {
+                    category.Name = newName;
+                }
+            }
         }
 
     }
