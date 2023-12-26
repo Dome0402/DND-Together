@@ -32,17 +32,17 @@ namespace DND_Together_neu.Model
                 Directory.CreateDirectory(path);
             }
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Scene));
-            TextWriter textWriter = new StreamWriter(path + scene.Name + ".xml");
+            TextWriter textWriter = new StreamWriter(path + scene.Name + ".dndt.xml");
 
             xmlSerializer.Serialize(textWriter, scene);
             textWriter.Close();
         }
 
-        public static Scene LoadScene(string name)
+        public static Scene LoadScene(string path)
         {
             Scene scene;
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Scene));
-            TextReader textReader = new StreamReader("./Data/" + name + ".xml");
+            TextReader textReader = new StreamReader(path);
 
             scene = (Scene)xmlSerializer.Deserialize(textReader);
             textReader.Close();

@@ -1,9 +1,11 @@
 ﻿using DND_Together_neu.Model;
 using Microsoft.Web.WebView2.Wpf;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,10 +33,56 @@ namespace DND_Together_neu.View
 
         public void LoadScene(string name)
         {
-            Scene scene = XML.LoadScene(name);
-            foreach(Category category in scene.Categories)
+            try
             {
+                if((tabCategories.Items) != null)
+                {
+                    foreach (TabItem item in tabCategories.Items)
+                    {
+                        TabControl tabControlPages = (TabControl)(((TabItem)tabCategories.SelectedItem).Content);
+                        if(tabControlPages != null)
+                        {
+                            foreach(TabItem page in tabControlPages.Items)
+                            {
+                                // Gibt Speicher von WebView2 frei (hoffentlich)
+                                (page.Content as WebView2).Dispose();
+                            }
+                            tabControlPages.Items.Clear();
+                        }
+                    }
+                }
                 
+                tabCategories.Items.Clear();
+                Scene scene = XML.LoadScene(name);
+                foreach (Category category in scene.Categories)
+                {
+                    TabItem tab = new TabItem();
+                    tab.Header = category.Name;
+                    tab.Padding = new Thickness(20, 10, 20, 10);
+                    tabCategories.Items.Add(tab);
+                    tabCategories.SelectedItem = tab;
+
+                    tab.Content = new TabControl();
+
+
+                    foreach(Model.Page page in category.Pages)
+                    {
+                        TabItem tabPage = new TabItem();
+                        tabPage.Header = page.Title;
+                        //
+
+                        var webView = new WebView2();
+                        Initialize_WebView(webView, new Uri(page.Url));
+
+                        tabPage.Content = webView;
+
+                        ((TabControl)tab.Content).Items.Add(tabPage);
+                    }
+
+                }
+            }catch (Exception e)
+            {
+                MessageBox.Show("Fehler beim Laden der Szene aufgetreten.\n" + e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -85,83 +133,91 @@ namespace DND_Together_neu.View
         TabItem tabCategoryEdit;
         private void btn_EditCategory_Click(object sender, RoutedEventArgs e)
         {
-            // Wenn noch kein Tab editiert wird
-            if(tabCategoryEdit == null)
+            // Wenn überhaupt eine Kategorie existiert
+            if (tabCategories.SelectedItem != null)
             {
-                tabCategoryEdit = (TabItem)tabCategories.SelectedItem;
-                // Alle anderen Tabs deaktivieren
-                foreach (TabItem category in tabCategories.Items)
+                // Wenn noch kein Tab editiert wird
+                if (tabCategoryEdit == null)
                 {
-                    // Alle Tabs, außer dem zzt ausgewählten Tab, deaktivieren
-                    if (category.Header.ToString() != tabCategoryEdit.Header.ToString())
+                    tabCategoryEdit = (TabItem)tabCategories.SelectedItem;
+                    // Alle anderen Tabs deaktivieren
+                    foreach (TabItem category in tabCategories.Items)
                     {
-                        // Tab deaktivieren
-                        category.IsEnabled = false;
+                        // Alle Tabs, außer dem zzt ausgewählten Tab, deaktivieren
+                        if (category.Header.ToString() != tabCategoryEdit.Header.ToString())
+                        {
+                            // Tab deaktivieren
+                            category.IsEnabled = false;
+                        }
                     }
+                    // Alle anderen Buttons deaktivieren
+                    btn_AddCategory.IsEnabled = false;
+                    btn_DeleteCategory.IsEnabled = false;
+                    btn_AddPage.IsEnabled = false;
+                    btn_DeletePage.IsEnabled = false;
+                    btn_EditPage.IsEnabled = false;
+
+                    // Das Textfeld fokusieren
+                    tf_CategoryName.Focus();
+
+                    // Den Text des Edit-Buttons zu einem Haken ändern
+                    btn_EditCategory.Content = "✓";
+
+                    // In das Textfeld den aktuellen Text des Tabs einfügen
+                    tf_CategoryName.Text = tabCategoryEdit.Header.ToString();
                 }
-                // Alle anderen Buttons deaktivieren
-                btn_AddCategory.IsEnabled = false;
-                btn_DeleteCategory.IsEnabled = false;
-                btn_AddPage.IsEnabled = false;
-                btn_DeletePage.IsEnabled = false;
-                btn_EditPage.IsEnabled = false;
-
-                // Das Textfeld fokusieren
-                tf_CategoryName.Focus();
-
-                // Den Text des Edit-Buttons zu einem Haken ändern
-                btn_EditCategory.Content = "✓";
-
-                // In das Textfeld den aktuellen Text des Tabs einfügen
-                tf_CategoryName.Text = tabCategoryEdit.Header.ToString();
-            }
-            // Wenn gerade ein Tab editiert wird, alles wieder rückgängig machen
-            else
-            {
-                tabCategoryEdit = (TabItem)tabCategories.SelectedItem;
-                // Alle Tabs aktivieren
-                foreach (TabItem category in tabCategories.Items)
+                // Wenn gerade ein Tab editiert wird, alles wieder rückgängig machen
+                else
                 {
-                    category.IsEnabled = true;
+                    tabCategoryEdit = (TabItem)tabCategories.SelectedItem;
+                    // Alle Tabs aktivieren
+                    foreach (TabItem category in tabCategories.Items)
+                    {
+                        category.IsEnabled = true;
+                    }
+                    // Alle anderen Buttons aktivieren
+                    btn_AddCategory.IsEnabled = true;
+                    btn_DeleteCategory.IsEnabled = true;
+                    btn_AddPage.IsEnabled = true;
+                    btn_DeletePage.IsEnabled = true;
+                    btn_EditPage.IsEnabled = true;
+
+                    // Den Text des Edit-Buttons zu einem Zahnrad ändern
+                    btn_EditCategory.Content = "⚙";
+
+                    // Den Text vom Textfeld in den Tab übertragen
+                    tabCategoryEdit.Header = tf_CategoryName.Text;
+
+                    // Das Textfeld leeren
+                    tf_CategoryName.Text = "";
+
+                    // Editierter Tab leeren
+                    tabCategoryEdit = null;
                 }
-                // Alle anderen Buttons aktivieren
-                btn_AddCategory.IsEnabled = true;
-                btn_DeleteCategory.IsEnabled = true;
-                btn_AddPage.IsEnabled = true;
-                btn_DeletePage.IsEnabled = true;
-                btn_EditPage.IsEnabled = true;
-
-                // Den Text des Edit-Buttons zu einem Zahnrad ändern
-                btn_EditCategory.Content = "⚙";
-
-                // Den Text vom Textfeld in den Tab übertragen
-                tabCategoryEdit.Header = tf_CategoryName.Text;
-
-                // Das Textfeld leeren
-                tf_CategoryName.Text = "";
-
-                // Editierter Tab leeren
-                tabCategoryEdit = null;
+                // (optional, TODO) Geschriebener Text live mit dem Text auf dem Tab ändern
             }
-            // (optional, TODO) Geschriebener Text live mit dem Text auf dem Tab ändern
         }
 
         private void btn_DeleteCategory_Click(object sender, RoutedEventArgs e)
         {
-            TabItem deleteTab = (TabItem)tabCategories.Items[tabCategories.SelectedIndex];
-            if(MessageBox.Show("Sicher, dass die Kategorie \"" + deleteTab.Header.ToString() + "\" gelöscht werden soll?", "Achtung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            if(tabCategories.SelectedItem != null)
             {
-                Debug.Print("Lösche Kategorie \"" + deleteTab.Header.ToString() + "\"...");
-                foreach (TabItem category in tabCategories.Items)
+                TabItem deleteTab = (TabItem)tabCategories.Items[tabCategories.SelectedIndex];
+                if (MessageBox.Show("Sicher, dass die Kategorie \"" + deleteTab.Header.ToString() + "\" gelöscht werden soll?", "Achtung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
-                    if (category.Header.ToString() == ((TabItem)tabCategories.SelectedItem).Header.ToString())
+                    Debug.Print("Lösche Kategorie \"" + deleteTab.Header.ToString() + "\"...");
+                    foreach (TabItem category in tabCategories.Items)
                     {
-                        Debug.Print(category.Header.ToString());
-                        tabCategories.Items.Remove(category);
-                        return;
+                        if (category.Header.ToString() == ((TabItem)tabCategories.SelectedItem).Header.ToString())
+                        {
+                            Debug.Print(category.Header.ToString());
+                            tabCategories.Items.Remove(category);
+                            return;
+                        }
                     }
                 }
             }
+            
         }
 
 
@@ -181,21 +237,20 @@ namespace DND_Together_neu.View
                             MessageBox.Show("Seite ist bereits vorhanden!", "Achtung", MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
                         }
-
                     }
                     string trimPageName = tf_PageName.Text.Replace(" ", "");
-                    TabItem newTabItem = new TabItem
+                    TabItem newTabItem = new()
                     {
                         Header = tf_PageName.Text,
-                        Name = "tab_" + trimPageName,
+                        Name = trimPageName,
                     };
 
                     var webView = new WebView2();
-                    webView.Initialized += WebView_Initialized;
 
+                    Initialize_WebView(webView, new Uri(tf_PageUrl.Text));
 
-                    webView.Source = new Uri(tf_PageUrl.Text);
                     newTabItem.Content = webView;
+                    
 
 
                     currentTabContent.Items.Add(newTabItem);
@@ -207,106 +262,108 @@ namespace DND_Together_neu.View
                 }
             }
         }
-
-        private async void WebView_Initialized(object? sender, EventArgs e)
+        private async void Initialize_WebView(WebView2 webView, Uri url)
         {
-            WebView2 webView = (WebView2)sender;
             await webView.EnsureCoreWebView2Async(null);
-            
-            webView.Source = new Uri(tf_PageUrl.Text);
-            tf_PageName.Text = "";
-            tf_PageUrl.Text = "";
+
+            webView.Source = url;
         }
 
         TabItem tabPageEdit;
         private void btn_EditPage_Click(object sender, RoutedEventArgs e)
         {
-            TabControl currentTabContent = (TabControl)(((TabItem)tabCategories.SelectedItem).Content);
-            if(currentTabContent.SelectedItem != null)
-                if (tabPageEdit == null)
-                {
-                    tabPageEdit = (TabItem)currentTabContent.SelectedItem;
-
-                    foreach(TabItem tabItem in currentTabContent.Items)
+            if (tabCategories.SelectedItem != null && ((TabControl)(((TabItem)tabCategories.SelectedItem).Content)) != null)
+            {
+                TabControl currentTabContent = (TabControl)(((TabItem)tabCategories.SelectedItem).Content);
+                if (currentTabContent.SelectedItem != null)
+                    if (tabPageEdit == null)
                     {
-                        if(tabItem.Header.ToString() != tabPageEdit.Header.ToString())
+                        tabPageEdit = (TabItem)currentTabContent.SelectedItem;
+
+                        foreach (TabItem tabItem in currentTabContent.Items)
                         {
-                            tabItem.IsEnabled = false;
+                            if (tabItem.Header.ToString() != tabPageEdit.Header.ToString())
+                            {
+                                tabItem.IsEnabled = false;
+                            }
                         }
+
+                        // Alle anderen Buttons deaktivieren
+                        btn_AddCategory.IsEnabled = false;
+                        btn_EditCategory.IsEnabled = false;
+                        btn_DeleteCategory.IsEnabled = false;
+                        btn_AddPage.IsEnabled = false;
+                        btn_DeletePage.IsEnabled = false;
+
+
+                        // Das Textfeld fokusieren
+                        tf_PageUrl.Focus();
+
+                        // Den Text des Edit-Buttons zu einem Haken ändern
+                        btn_EditPage.Content = "✓";
+
+                        // In das Textfeld den aktuellen Text des Tabs einfügen
+                        tf_PageName.Text = tabPageEdit.Header.ToString();
+                        tf_PageUrl.Text = ((WebView2)tabPageEdit.Content).Source.ToString();
                     }
-
-                    // Alle anderen Buttons deaktivieren
-                    btn_AddCategory.IsEnabled = false;
-                    btn_EditCategory.IsEnabled = false;
-                    btn_DeleteCategory.IsEnabled = false;
-                    btn_AddPage.IsEnabled = false;
-                    btn_DeletePage.IsEnabled = false;
-
-
-                    // Das Textfeld fokusieren
-                    tf_PageUrl.Focus();
-
-                    // Den Text des Edit-Buttons zu einem Haken ändern
-                    btn_EditPage.Content = "✓";
-
-                    // In das Textfeld den aktuellen Text des Tabs einfügen
-                    tf_PageName.Text = tabPageEdit.Header.ToString();
-                    tf_PageUrl.Text = ((WebView2)tabPageEdit.Content).Source.ToString();
-                }
-                else
-                {
-                    try
+                    else
                     {
-                        // URL versuchen als Quelle der WebView zu setzen
-                        ((WebView2)tabPageEdit.Content).Source = new Uri(tf_PageUrl.Text);
+                        try
+                        {
+                            // URL versuchen als Quelle der WebView zu setzen
+                            ((WebView2)tabPageEdit.Content).Source = new Uri(tf_PageUrl.Text);
+                        }
+                        catch (UriFormatException ex)
+                        {
+                            MessageBox.Show("Es muss eine gültige URL eingegeben werden.");
+                            return;
+                        }
+                        tabPageEdit = (TabItem)currentTabContent.SelectedItem;
+                        // Alle Tabs aktivieren
+                        foreach (TabItem page in currentTabContent.Items)
+                        {
+                            page.IsEnabled = true;
+                        }
+                        // Alle anderen Buttons aktivieren
+                        btn_AddCategory.IsEnabled = true;
+                        btn_EditCategory.IsEnabled = true;
+                        btn_DeleteCategory.IsEnabled = true;
+                        btn_AddPage.IsEnabled = true;
+                        btn_DeletePage.IsEnabled = true;
+
+                        // Den Text des Edit-Buttons zu einem Zahnrad ändern
+                        btn_EditPage.Content = "⚙";
+
+                        // Den Text vom Textfeld in den Tab übertragen
+                        tabPageEdit.Header = tf_PageName.Text;
+
+                        // Editierter Tab leeren
+                        tabPageEdit = null;
+
+                        tf_PageName.Text = "";
+                        tf_PageUrl.Text = "";
                     }
-                    catch (UriFormatException ex)
-                    {
-                        MessageBox.Show("Es muss eine gültige URL eingegeben werden.");
-                        return;
-                    }
-                    tabPageEdit = (TabItem)currentTabContent.SelectedItem;
-                    // Alle Tabs aktivieren
-                    foreach (TabItem page in currentTabContent.Items)
-                    {
-                        page.IsEnabled = true;
-                    }
-                    // Alle anderen Buttons aktivieren
-                    btn_AddCategory.IsEnabled = true;
-                    btn_EditCategory.IsEnabled = true;
-                    btn_DeleteCategory.IsEnabled = true;
-                    btn_AddPage.IsEnabled = true;
-                    btn_DeletePage.IsEnabled = true;
-
-                    // Den Text des Edit-Buttons zu einem Zahnrad ändern
-                    btn_EditPage.Content = "⚙";
-
-                    // Den Text vom Textfeld in den Tab übertragen
-                    tabPageEdit.Header = tf_PageName.Text;
-
-                    // Editierter Tab leeren
-                    tabPageEdit = null;
-
-                    tf_PageName.Text = "";
-                    tf_PageUrl.Text = "";
-                }
+            }
         }
 
         private void btn_DeletePage_Click(object sender, RoutedEventArgs e)
         {
-            TabControl currentTabControl = ((TabControl)(((TabItem)tabCategories.SelectedItem).Content));
-            TabItem deletePageTab = (TabItem)currentTabControl.SelectedItem;
-
-            if (MessageBox.Show("Sicher, dass die Seite \"" + deletePageTab.Header.ToString() + "\" gelöscht werden soll?", "Achtung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            if(tabCategories.SelectedItem != null && ((TabControl)(((TabItem)tabCategories.SelectedItem).Content)) != null)
             {
-                Debug.Print("Lösche Seite \"" + deletePageTab.Header.ToString() + "\"...");
-                foreach(TabItem item in currentTabControl.Items)
+                TabControl currentTabControl = ((TabControl)(((TabItem)tabCategories.SelectedItem).Content));
+                TabItem deletePageTab = (TabItem)currentTabControl.SelectedItem;
+
+                if (MessageBox.Show("Sicher, dass die Seite \"" + deletePageTab.Header.ToString() + "\" gelöscht werden soll?", "Achtung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
-                    if(item.Header.ToString() == deletePageTab.Header.ToString())
+                    Debug.Print("Lösche Seite \"" + deletePageTab.Header.ToString() + "\"...");
+                    foreach (TabItem item in currentTabControl.Items)
                     {
-                        currentTabControl.Items.Remove(item);
-                        Debug.Print("Seite gelöscht.");
-                        return;
+                        if (item.Header.ToString() == deletePageTab.Header.ToString())
+                        {
+                            currentTabControl.Items.Remove(item);
+                            Debug.Print("Seite gelöscht.");
+                            return;
+                        }
                     }
                 }
             }
@@ -343,7 +400,13 @@ namespace DND_Together_neu.View
 
         private void menuOpen_Click(object sender, RoutedEventArgs e)
         {
-
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "DnD-Together Szenen(*.dndt.xml)|*.dndt.xml";
+            openFileDialog.DefaultDirectory = System.IO.Directory.GetCurrentDirectory();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                LoadScene(openFileDialog.FileName);
+            }
         }
     }
 }
