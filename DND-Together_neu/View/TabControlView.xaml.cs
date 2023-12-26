@@ -386,7 +386,11 @@ namespace DND_Together_neu.View
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "DnD-Together Szenen(*.dndts)|*.dndts";
-            if(saveFileDialog.ShowDialog() == true)
+            saveFileDialog.Title = "Speichern unter";
+            saveFileDialog.RestoreDirectory = true;
+            saveFileDialog.DefaultDirectory = System.IO.Directory.GetCurrentDirectory();
+            saveFileDialog.FileName = scene.Name;
+            if (saveFileDialog.ShowDialog() == true)
             {
                 Scene scene = new Scene();
 
@@ -410,6 +414,7 @@ namespace DND_Together_neu.View
                     scene.AddCategory(cat);
                 }
                 XML.SaveScene(scene);
+                Application.Current.Windows[0].Title = "D&D Together - " + scene.Name;
             }
         }
 
@@ -475,6 +480,7 @@ namespace DND_Together_neu.View
                     }
 
                 }
+                Application.Current.Windows[0].Title = "D&D Together - " + scene.Name;
             }
             catch (Exception e)
             {

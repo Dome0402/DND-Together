@@ -2,7 +2,7 @@
 <Scene>
 	<Categories>
 		<Category>
-			<Name>Roll 20 🎲</Name>
+			<CatName>Roll 20 🎲</CatName>
 			<Pages>
 				<Page>
 					<Name>Roll 20</Name>
@@ -11,7 +11,7 @@
 			</Pages>
 		</Category>
 		<Category>
-			<Name>Charaktere 🏹</Name>
+			<CatName>Charaktere 🏹</CatName>
 			<Pages>
 				<Page>
 					<Name>Chef Alfons (Julian)</Name>
@@ -36,7 +36,7 @@
 			</Pages>
 		</Category>
 		<Category>
-			<Name>Abenteuer 🗺</Name>
+			<CatName>Abenteuer 🗺</CatName>
 			<Pages>
 				<Page>
 					<Name>Phandalin</Name>
@@ -61,7 +61,7 @@
 			</Pages>
 		</Category>
 		<Category>
-			<Name>Shops 🛒</Name>
+			<CatName>Shops 🛒</CatName>
 			<Pages>
 				<Page>
 					<Name>Barthens Vorräte</Name>
@@ -78,7 +78,7 @@
 			</Pages>
 		</Category>
 		<Category>
-			<Name>Stat-Blocks 👾</Name>
+			<CatName>Stat-Blocks 👾</CatName>
 			<Pages>
 				<Page>
 					<Name>Ork</Name>
@@ -107,7 +107,7 @@
 			</Pages>
 		</Category>
 		<Category>
-			<Name>Suchen 🔍</Name>
+			<CatName>Suchen 🔍</CatName>
 			<Pages>
 				<Page>
 					<Name>Basic Rules</Name>
