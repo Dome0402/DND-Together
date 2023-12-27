@@ -220,6 +220,9 @@ namespace DND_Together_neu.View
 
                     currentTabContent.SelectedItem = newTabItem;
 
+                    tf_PageName.Text = "";
+                    tf_PageUrl.Text = "";
+
                 }
             }
         }
