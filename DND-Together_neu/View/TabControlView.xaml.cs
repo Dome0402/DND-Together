@@ -65,8 +65,9 @@ namespace DND_Together_neu.View
             {
                 Header = tf_CategoryName.Text,
                 Padding = new Thickness(20,10,20,10),
-                Content = new TabControl()
-            };
+                Content = new TabControl(),
+                Style = (Style)FindResource("OuterTabControlItemStyle")
+        };
             tabCategories.Items.Add(newTabItem);
             scene.AddCategory(new Category()
             {
@@ -199,7 +200,8 @@ namespace DND_Together_neu.View
                     TabItem newTabItem = new()
                     {
                         Header = tf_PageName.Text,
-                    };
+                        Style = (Style)FindResource("InnerTabControlItemStyle")
+                };
 
                     var webView = new WebView2();
 
@@ -464,6 +466,7 @@ namespace DND_Together_neu.View
                     tab.Padding = new Thickness(20, 10, 20, 10);
                     tabCategories.Items.Add(tab);
                     tabCategories.SelectedItem = tab;
+                    tab.Style = (Style)FindResource("OuterTabControlItemStyle");
 
                     tab.Content = new TabControl();
 
@@ -478,6 +481,7 @@ namespace DND_Together_neu.View
                         Initialize_WebView(webView, new Uri(page.Url));
 
                         tabPage.Content = webView;
+                        tabPage.Style = (Style)FindResource("InnerTabControlItemStyle");
 
                         ((TabControl)tab.Content).Items.Add(tabPage);
                     }
@@ -489,6 +493,17 @@ namespace DND_Together_neu.View
             {
                 MessageBox.Show("Fehler beim Laden der Szene aufgetreten.\n" + e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+        static public string FindNameFromResource(ResourceDictionary dictionary, object resourceItem)
+        {
+            foreach (object key in dictionary.Keys)
+            {
+                if (dictionary[key] == resourceItem)
+                {
+                    return key.ToString();
+                }
+            }
+            return null;
         }
 
     }
