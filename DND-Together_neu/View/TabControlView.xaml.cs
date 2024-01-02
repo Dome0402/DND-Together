@@ -26,24 +26,12 @@ namespace DND_Together_neu.View
     public partial class TabControlView : UserControl
     {
         TabControl TabControl;
+        public bool AreChanges = false;
         public TabControlView()
         {
             InitializeComponent();
         }
         Scene scene = new Scene();
-
-        public void generateStartTabControl()
-        {
-            TabControl = new TabControl()
-            {
-                ItemsSource = new List<string>()
-                {
-                    "Test 1",
-                    "Test 2"
-                }
-            };
-            tabCategories.ItemsSource = TabControl.ItemsSource;
-        }
 
         private void tabCategories_Loaded(object sender, RoutedEventArgs e)
         {
@@ -67,7 +55,7 @@ namespace DND_Together_neu.View
                 Padding = new Thickness(20,10,20,10),
                 Content = new TabControl(),
                 Style = (Style)FindResource("OuterTabControlItemStyle")
-        };
+            };
             tabCategories.Items.Add(newTabItem);
             scene.AddCategory(new Category()
             {
@@ -79,7 +67,8 @@ namespace DND_Together_neu.View
             tf_CategoryName.Text = "";
             if (tabCategories.SelectedItem == null)
                 tabCategories.SelectedIndex = 0;
-            
+
+            AreChanges = true;
         }
 
         TabItem tabCategoryEdit;
@@ -151,6 +140,7 @@ namespace DND_Together_neu.View
                     tabCategoryEdit = null;
                 }
                 // (optional, TODO) Geschriebener Text live mit dem Text auf dem Tab ändern
+                AreChanges = true;
             }
         }
 
@@ -171,6 +161,7 @@ namespace DND_Together_neu.View
 
                             scene.RemoveCategory(category.Header.ToString());
 
+                            AreChanges = true;
                             return;
                         }
                     }
@@ -179,8 +170,6 @@ namespace DND_Together_neu.View
             
         }
 
-
-        // Liste binden?? Oder eher doch nicht??
         private void btn_AddPage_Click(object sender, RoutedEventArgs e)
         {
             // Wenn beide Felder, Titel und Url, nicht leer sind
@@ -226,8 +215,10 @@ namespace DND_Together_neu.View
                     tf_PageUrl.Text = "";
 
                 }
+                AreChanges = true;
             }
         }
+
         private void Initialize_WebView(WebView2 webView, Uri url)
         {
             webView.EnsureCoreWebView2Async(null);
@@ -337,6 +328,7 @@ namespace DND_Together_neu.View
                             }
                         }
                     }
+                AreChanges = true;
             }
         }
 
@@ -375,6 +367,7 @@ namespace DND_Together_neu.View
                             }
 
                             Debug.Print("Seite gelöscht.");
+                            AreChanges = true;
                             return;
                         }
                     }
@@ -384,7 +377,11 @@ namespace DND_Together_neu.View
 
         private void menuClose_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            if (AreChanges && MessageBox.Show("Sie haben die Sitzung nicht gespeichert! Ohne Speichern beenden?", "Achtung!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                AreChanges = false;
+                Application.Current.Shutdown();
+            }
         }
 
         private async void menuSave_Click(object sender, RoutedEventArgs e)
@@ -421,11 +418,16 @@ namespace DND_Together_neu.View
                 XML.SaveScene(scene);
                 Application.Current.Windows[0].Title = "D&D Together - " + scene.Name;
             }
+            AreChanges = false;
         }
 
 
         private void menuOpen_Click(object sender, RoutedEventArgs e)
         {
+            if (AreChanges && MessageBox.Show("Sie haben die Sitzung nicht gespeichert! Ohne Speichern fortfahren?", "Achtung!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                return;
+            }
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "DnD-Together Szenen(*.dndts)|*.dndts";
             openFileDialog.DefaultDirectory = System.IO.Directory.GetCurrentDirectory();
@@ -493,6 +495,8 @@ namespace DND_Together_neu.View
             {
                 MessageBox.Show("Fehler beim Laden der Szene aufgetreten.\n" + e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            AreChanges = false;
         }
         static public string FindNameFromResource(ResourceDictionary dictionary, object resourceItem)
         {

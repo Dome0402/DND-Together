@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DND_Together_neu.View"
         mc:Ignorable="d"
-        Title="D&amp;D Together" Height="450" Width="800">
+        Title="D&amp;D Together" Height="450" Width="800"
+        Closing="Window_Closing">
     <Grid>
-        <local:TabControlView/>
+        <local:TabControlView x:Name="tabControlView"/>
     </Grid>
 </Window>
