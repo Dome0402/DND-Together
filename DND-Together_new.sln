@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DND-Together_neu", "DND-Together_neu\DND-Together_neu.csproj", "{CB8C02CB-F948-425B-83C6-0C844354CC6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DND-Together", "DND-Together_neu\DND-Together.csproj", "{CB8C02CB-F948-425B-83C6-0C844354CC6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DND-Together_neu_Test", "DND-Together_neu_Test\DND-Together_neu_Test.csproj", "{32EE648D-B444-4845-8400-FA7EA3B382FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DND-Together_neu_Test", "DND-Together_neu_Test\DND-Together_neu_Test.csproj", "{32EE648D-B444-4845-8400-FA7EA3B382FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

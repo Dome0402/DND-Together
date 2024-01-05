@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 
-namespace DND_Together_neu.Model
+namespace DND_Together.MVVM.Model
 {
     public static class XML
     {
