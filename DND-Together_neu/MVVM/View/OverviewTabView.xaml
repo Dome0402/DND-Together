@@ -84,7 +84,7 @@
         <TabControl Grid.Row="1" x:Name="tabCategories" 
                     TabStripPlacement="Left" FontSize="16"
                     ItemsSource="{Binding CategoryTabs}" 
-                    SelectedItem="{Binding SelectedItem}"/>
+                    SelectedItem="{Binding SelectedCategory}"/>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -99,7 +99,11 @@
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Name="tf_CategoryName" IsEnabled="{Binding IsEnabledEditCategory}" Text="{Binding CategoryName}" ToolTip="Name der Seite" Grid.Column="0" Margin="2" FontSize="16" VerticalContentAlignment="Center"/>
+                <TextBox Name="tf_CategoryName" IsEnabled="{Binding IsEnabledEditCategory}" Text="{Binding CategoryName}" ToolTip="Name der Seite" Grid.Column="0" Margin="2" FontSize="16" VerticalContentAlignment="Center">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=tf_CategoryName}" Command="{Binding CategoryNameTextBoxOnEnterCommand}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <Button Name="btn_AddCategory" IsEnabled="{Binding IsEnabledOtherElements}" Command="{Binding AddCategoryCommand}" Content="+" Grid.Column="1" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
                 <Button Name="btn_EditCategory" IsEnabled="{Binding IsEnabledEditCategory}" Command="{Binding EditCategoryCommand}" Content="{Binding ContentButtonEditCategory}" Grid.Column="2" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
                 <Button Name="btn_DeleteCategory" IsEnabled="{Binding IsEnabledOtherElements}" Command="{Binding DeleteCategoryCommand}" Content="x" Grid.Column="3" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
@@ -118,7 +122,7 @@
                 <TextBox Name="tf_PageName" IsEnabled="{Binding IsEnabledEditPage}" Text="{Binding PageName}" ToolTip="Name der Seite" Grid.Column="0" Margin="2" FontSize="16" VerticalContentAlignment="Center"/>
                 <TextBox Name="tf_PageUrl" IsEnabled="{Binding IsEnabledEditPage}" Text="{Binding PageUrl}" ToolTip="URL der Seite" Grid.Column="1" Margin="2" FontSize="16" VerticalContentAlignment="Center"/>
                 <Button Name="btn_AddPage" IsEnabled="{Binding IsEnabledOtherElements}" Command="{Binding AddPageCommand}" Content="+" Grid.Column="2" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
-                <Button Name="btn_EditPage" IsEnabled="{Binding IsEnabledEditPage}" Command="{Binding EditPageCommand}" Content="⚙" Grid.Column="3" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
+                <Button Name="btn_EditPage" IsEnabled="{Binding IsEnabledEditPage}" Command="{Binding EditPageCommand}" Content="{Binding ContentButtonEditPage}" Grid.Column="3" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
                 <Button Name="btn_DeletePage" IsEnabled="{Binding IsEnabledOtherElements}" Command="{Binding DeletePageCommand}" Content="x" Grid.Column="4" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
 
             </Grid>

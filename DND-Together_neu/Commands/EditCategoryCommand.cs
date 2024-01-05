@@ -12,18 +12,27 @@ namespace DND_Together.Commands
     public class EditCategoryCommand : CommandBase
     {
         private readonly OverviewTabViewModel _overviewTabViewModel;
-        private bool inEdit = false;
         public override void Execute(object parameter)
         {
-            if(_overviewTabViewModel.SelectedItem != null)
+            if (_overviewTabViewModel.SelectedCategory != null)
             {
-                // Wenn gerade nichts editiert wird
-                if (!inEdit)
+                string catName;
+                if ((string)parameter != null && (string)parameter != "")
+                {
+                    catName = (string)parameter;
+                }
+                else
+                {
+                    catName = _overviewTabViewModel.CategoryName;
+                }
+
+                // If category is being edited
+                if (!_overviewTabViewModel.IsCategoryEditing)
                 {
                     // Alle anderen Tabs deaktivieren
                     foreach(TabItem category in _overviewTabViewModel.CategoryTabs)
                     {
-                        if(category.Header.ToString() != _overviewTabViewModel.SelectedItem.Header.ToString())
+                        if(category.Header.ToString() != _overviewTabViewModel.SelectedCategory.Header.ToString())
                         {
                             category.IsEnabled = false;
                         }
@@ -34,11 +43,11 @@ namespace DND_Together.Commands
 
                     _overviewTabViewModel.ContentButtonEditCategory = "✓";
 
-                    _overviewTabViewModel.CategoryName = _overviewTabViewModel.SelectedItem.Header.ToString();
+                    _overviewTabViewModel.CategoryName = _overviewTabViewModel.SelectedCategory.Header.ToString();
 
-                    inEdit = true;
+                    _overviewTabViewModel.IsCategoryEditing = true;
                 }
-                // Wenn gerade etwas editiert und am Ende bestätigt wird
+                // If no category is being edited
                 else
                 {
 
@@ -46,13 +55,13 @@ namespace DND_Together.Commands
                     // Alle anderen Tabs aktivieren
                     foreach (TabItem category in _overviewTabViewModel.CategoryTabs)
                     {
-                        if (category.Header.ToString() != _overviewTabViewModel.SelectedItem.Header.ToString())
+                        if (category.Header.ToString() != _overviewTabViewModel.SelectedCategory.Header.ToString())
                         {
                             category.IsEnabled = true;
                         }
                     }
 
-                    _overviewTabViewModel.SelectedItem.Header = _overviewTabViewModel.CategoryName;
+                    _overviewTabViewModel.SelectedCategory.Header = catName;
 
 
                     _overviewTabViewModel.IsEnabledOtherElements = true;
@@ -62,7 +71,7 @@ namespace DND_Together.Commands
 
                     _overviewTabViewModel.CategoryName = "";
 
-                    inEdit = false;
+                    _overviewTabViewModel.IsCategoryEditing = false;
                 }
             }
 

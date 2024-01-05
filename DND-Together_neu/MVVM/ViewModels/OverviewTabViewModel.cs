@@ -23,8 +23,8 @@ namespace DND_Together.MVVM.ViewModels
         //
         
         // Binded from Category TabControl -> ItemsSource
-        private IEnumerable<TabItem> _categoryTabs;
-        public IEnumerable<TabItem> CategoryTabs
+        private List<TabItem> _categoryTabs;
+        public List<TabItem> CategoryTabs
         {
             get { return _categoryTabs; }
             set
@@ -36,18 +36,18 @@ namespace DND_Together.MVVM.ViewModels
 
         // Binded from Category TabControl -> SelectedItem
         private TabItem _selectedItem;
-        public TabItem SelectedItem
+        public TabItem SelectedCategory
         {
             get { return _selectedItem; }
             set {
                 _selectedItem = value;
-                OnPropertyChanged(nameof(SelectedItem));
+                OnPropertyChanged(nameof(SelectedCategory));
             }
         }
 
         // Binded from TextBox tf_CategoryName -> Text
-        private string _newCategory;
-        public string CategoryName
+        private string? _newCategory;
+        public string? CategoryName
         {
             get { return _newCategory; }
             set { 
@@ -125,6 +125,19 @@ namespace DND_Together.MVVM.ViewModels
         }
 
 
+        private string _contentButtonEditPage;
+
+        public string ContentButtonEditPage
+        {
+            get { return _contentButtonEditPage; }
+            set { 
+                _contentButtonEditPage = value;
+                OnPropertyChanged(nameof(ContentButtonEditPage));
+            }
+        }
+
+
+
         //
         // Commands
         //
@@ -137,6 +150,15 @@ namespace DND_Together.MVVM.ViewModels
         public ICommand EditPageCommand { get; }
         public ICommand DeletePageCommand { get; }
 
+        public ICommand CategoryNameTextBoxOnEnterCommand { get; }
+
+
+        //
+        // Local Variables
+        //
+        public bool IsCategoryEditing { get; set; }
+
+        public bool IsPageEditing { get; set; }
 
         public OverviewTabViewModel()
         {
@@ -148,12 +170,14 @@ namespace DND_Together.MVVM.ViewModels
             EditPageCommand = new EditPageCommand(this);
             DeletePageCommand = new DeletePageCommand(this);
 
+            CategoryNameTextBoxOnEnterCommand = new CategoryNameTextBoxOnEnter(this);
+
             IsEnabledEditCategory = true;
             IsEnabledEditPage = true;
             IsEnabledOtherElements = true;
 
             ContentButtonEditCategory = "⚙";
-
+            ContentButtonEditPage = "⚙";
         }
     }
 }
