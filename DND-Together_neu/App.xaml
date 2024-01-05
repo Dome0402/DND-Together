@@ -1,8 +1,7 @@
-﻿<Application x:Class="DND_Together_neu.App"
+﻿<Application x:Class="DND_Together.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:DND_Together_neu"
-             StartupUri="View/MainWindow.xaml">
+             xmlns:local="clr-namespace:DND_Together">
     <Application.Resources>
          
     </Application.Resources>

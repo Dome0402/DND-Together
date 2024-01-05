@@ -1,13 +1,17 @@
-﻿<Window x:Class="DND_Together_neu.View.MainWindow"
+﻿<Window x:Class="DND_Together.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DND_Together_neu.View"
+        xmlns:local="clr-namespace:DND_Together"
+        xmlns:view="clr-namespace:DND_Together.MVVM.View"
         mc:Ignorable="d"
-        Title="D&amp;D Together" Height="450" Width="800"
-        Closing="Window_Closing">
+        Title="DND Together" Height="450" Width="800" WindowState="Maximized">
     <Grid>
-        <local:TabControlView x:Name="tabControlView"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <view:OverviewTabView DataContext="{Binding CurrentViewModel}"/>
+
     </Grid>
 </Window>
