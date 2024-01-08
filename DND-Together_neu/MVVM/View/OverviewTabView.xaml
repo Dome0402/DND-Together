@@ -60,20 +60,33 @@
         </Grid.RowDefinitions>
         <Menu>
             <MenuItem Header="Datei">
-                <MenuItem Name="menuOpen" Command="{Binding OpenSceneCommand}" Header="Öffnen" InputGestureText="Strg+O"/>
-                <MenuItem Name="menuSave" Command="{Binding SaveSceneCommand}" Header="Speichern" InputGestureText="Strg+S"/>
+                <MenuItem Name="menuOpen" Icon="📁" Command="{Binding OpenSceneCommand}" Header="Öffnen" InputGestureText="Strg+O"/>
+                <MenuItem Name="menuSave" Icon="💾" Command="{Binding SaveSceneCommand}" Header="Speichern" InputGestureText="Strg+S"/>
 
                 <Separator/>
                 <MenuItem Name="menuClose" Command="{Binding CloseApplicationCommand}" Header="Beenden" InputGestureText="Strg+X"/>
             </MenuItem>
             <MenuItem Header="Bearbeiten">
-
+                <MenuItem Name="menuUndo" Icon="⮌" Header="Rückgängig (W.I.P.)" InputGestureText="Strg+Z"/>
+                <MenuItem Name="menuRedo" Icon="⮎" Header="Wiederholen (W.I.P.)" InputGestureText="Strg+Y"/>
             </MenuItem>
             <MenuItem Header="Ansicht">
-
+                <MenuItem Header="Schriftgröße (W.I.P.)">
+                    <MenuItem Header="14"/>
+                    <MenuItem Header="16"/>
+                    <MenuItem Header="18"/>
+                    <MenuItem Header="20"/>
+                    <MenuItem Header="..."/>
+                </MenuItem>
+                <MenuItem Header="Sprache (W.I.P.)">
+                    <MenuItem Header="Deutsch"/>
+                    <MenuItem Header="English"/>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Hilfe">
-
+                <MenuItem Name="menuKeyShortcuts" Header="Tastenbelegung"/>
+                <Separator/>
+                <MenuItem Name="menuAbout" Header="Über"/>
             </MenuItem>
         </Menu>
 
