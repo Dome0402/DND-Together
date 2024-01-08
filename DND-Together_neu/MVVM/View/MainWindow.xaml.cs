@@ -1,5 +1,6 @@
 ﻿using DND_Together.MVVM.ViewModels;
 using System.ComponentModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,14 +28,10 @@ namespace DND_Together.MVVM.View
         {
             if(((this.DataContext as MainViewModel).CurrentViewModel as OverviewTabViewModel).AreChanges)
             {
-                MessageBoxResult result = MessageBox.Show("Es sind noch ungespeicherte Änderungen vorhanden. Möchten Sie diese vorher speichern?", "Achtung!", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
-                if (result == MessageBoxResult.Cancel)
+                MessageBoxResult result = MessageBox.Show("Sie haben die Sitzung nicht gespeichert! Ohne Speichern beenden?", "Achtung!", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.No)
                 {
                     e.Cancel = true;
-                }
-                else if (result == MessageBoxResult.Yes)
-                {
-                    ((this.DataContext as MainViewModel).CurrentViewModel as OverviewTabViewModel).SaveSceneCommand.Execute(this);
                 }
             }
         }

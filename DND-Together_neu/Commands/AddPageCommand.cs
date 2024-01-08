@@ -66,9 +66,9 @@ namespace DND_Together.Commands
             }
         }
 
-        private void Initialize_WebView(WebView2 webView, Uri url)
+        private async void Initialize_WebView(WebView2 webView, Uri url)
         {
-            webView.EnsureCoreWebView2Async(null);
+            await webView.EnsureCoreWebView2Async(null);
             webView.Source = url;
         }
 

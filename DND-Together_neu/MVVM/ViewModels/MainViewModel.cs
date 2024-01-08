@@ -10,7 +10,6 @@ namespace DND_Together.MVVM.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-
         public ViewModelBase CurrentViewModel { get; }
 
         public MainViewModel()

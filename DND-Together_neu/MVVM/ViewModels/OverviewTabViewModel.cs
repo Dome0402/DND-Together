@@ -180,13 +180,12 @@ namespace DND_Together.MVVM.ViewModels
             EditPageCommand = new EditPageCommand(this);
             DeletePageCommand = new DeletePageCommand(this);
 
-            OpenSceneCommand = new OpenSceneCommand(this);
+            CategoryTabs = new();
             SaveSceneCommand = new SaveSceneCommand(this);
             CloseApplicationCommand = new CloseApplicationCommand(this);
 
             CategoryNameTextBoxOnEnterCommand = new CategoryNameTextBoxOnEnter(this);
 
-            CategoryTabs = new();
 
             IsEnabledEditCategory = true;
             IsEnabledEditPage = true;
@@ -195,6 +194,9 @@ namespace DND_Together.MVVM.ViewModels
 
             ContentButtonEditCategory = "⚙";
             ContentButtonEditPage = "⚙";
+
+
+            OpenSceneCommand = new OpenSceneCommand(this);
         }
     }
 }

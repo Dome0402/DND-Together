@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
 using Microsoft.Web.WebView2.Wpf;
+using System.IO;
+using System.Security.Policy;
+using Microsoft.Web.WebView2.Core;
 
 
 namespace DND_Together.Commands
@@ -18,6 +21,11 @@ namespace DND_Together.Commands
         OverviewTabViewModel _overviewTabViewModel;
         public override void Execute(object parameter)
         {
+            if(parameter != null)
+            {
+                LoadSceneAsync((string)parameter);
+                return;
+            }
             if (_overviewTabViewModel.AreChanges && MessageBox.Show("Sie haben die Sitzung nicht gespeichert! Ohne Speichern fortfahren?", "Achtung!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                 return;
@@ -27,16 +35,16 @@ namespace DND_Together.Commands
             dialog.DefaultDirectory = System.IO.Directory.GetCurrentDirectory();
             if (dialog.ShowDialog() == true)
             {
-                LoadScene(dialog.FileName);
+                LoadSceneAsync(dialog.FileName);
             }
         }
 
-        private void LoadScene(string fileName)
+        private async void LoadSceneAsync(string fileName)
         {
-            
             try
             {
                 // Clear TabControl and every Page and WebView in it hoping to free up memory
+                
                 foreach (TabItem item in _overviewTabViewModel.CategoryTabs)
                 {
                     TabControl tabControlPages = (TabControl)item.Content;
@@ -46,11 +54,13 @@ namespace DND_Together.Commands
                         {
                             // Free up memory (hopefully)
                             ((WebView2)page.Content).Dispose();
+
                         }
-                        tabControlPages.Items.Clear();
+                        //tabControlPages.Items.Clear();
                     }
                 }
                 _overviewTabViewModel.CategoryTabs.Clear();
+                
 
                 // Load Scene from file to Scene object
                 Scene scene = XML.LoadScene(fileName);
@@ -82,6 +92,8 @@ namespace DND_Together.Commands
                         var webView = new WebView2();
                         Initialize_WebView(webView, new Uri(page.Url));
 
+                        
+
                         // Set WebView as Content
                         tabPage.Content = webView;
 
@@ -109,13 +121,29 @@ namespace DND_Together.Commands
         private void Initialize_WebView(WebView2 webView, Uri url)
         {
             webView.EnsureCoreWebView2Async(null);
+            
 
             webView.Source = url;
         }
 
+
         public OpenSceneCommand(OverviewTabViewModel overviewTabViewModel)
         {
             _overviewTabViewModel = overviewTabViewModel;
+
+            string[] args = Environment.GetCommandLineArgs();
+
+            try
+            {
+                if (File.Exists(args[1]))
+                {
+                    Execute(args[1]);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }
