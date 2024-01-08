@@ -7,46 +7,41 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <Style x:Key="OuterTabControlItemStyle" TargetType="TabItem">
+        <Style TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="TabItem">
-                        <Border Name="Border" BorderThickness="2,2,0,2" BorderBrush="LightSteelBlue" CornerRadius="4,0,0,4" Margin="5,2,0,2" Padding="20,10,20,10">
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Border" BorderThickness="2" BorderBrush="#9FC0F5" CornerRadius="2">
                             <ContentPresenter x:Name="ContentSite"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            ContentSource="Header"
-                            Margin="10,2"/>
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Content="{TemplateBinding Content}"/>
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="CadetBlue" />
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="LightGray" />
                             </Trigger>
-                            <Trigger Property="IsSelected" Value="False">
-                                <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#9FDBF4" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="InnerTabControlItemStyle" TargetType="TabItem">
+        <Style TargetType="TextBox">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="TabItem">
-                        <Border Name="Border" BorderThickness="2,2,2,0" BorderBrush="LightSteelBlue" CornerRadius="4,4,0,0" Margin="2,0">
-                            <ContentPresenter x:Name="ContentSite"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    ContentSource="Header"
-                    Margin="10,2"/>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Name="Border" BorderThickness="2" BorderBrush="#9FC0F5" CornerRadius="2">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="CadetBlue" />
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="LightGray" />
                             </Trigger>
-                            <Trigger Property="IsSelected" Value="False">
-                                <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#9FDBF4" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -65,8 +60,8 @@
         </Grid.RowDefinitions>
         <Menu>
             <MenuItem Header="Datei">
-                <MenuItem Name="menuOpen" Header="Öffnen"/>
-                <MenuItem Name="menuSave" Header="Speichern"/>
+                <MenuItem Name="menuOpen" Command="{Binding OpenSceneCommand}" Header="Öffnen"/>
+                <MenuItem Name="menuSave" Command="{Binding SaveSceneCommand}" Header="Speichern"/>
                 <Separator/>
                 <MenuItem Name="menuClose" Header="Beenden"/>
             </MenuItem>
@@ -84,7 +79,8 @@
         <TabControl Grid.Row="1" x:Name="tabCategories" 
                     TabStripPlacement="Left" FontSize="16"
                     ItemsSource="{Binding CategoryTabs}" 
-                    SelectedItem="{Binding SelectedCategory}"/>
+                    SelectedItem="{Binding SelectedCategory}"
+                    Style="{StaticResource OuterTabControlStyle}"/>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

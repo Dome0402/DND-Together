@@ -1,4 +1,5 @@
-﻿using DND_Together.MVVM.ViewModels;
+﻿using DND_Together.MVVM.Model;
+using DND_Together.MVVM.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -55,7 +56,10 @@ namespace DND_Together.Commands
                 Header = catName,
                 Padding = new Thickness(20, 10, 20, 10),
                 Content = new TabControl()
-                //Style = (Style)FindResource("OuterTabControlItemStyle"),
+                {
+                    Style = Application.Current.Resources["InnerTabControlStyle"] as Style
+                },
+                Style = Application.Current.Resources["OuterTabControlItemStyle"] as Style
             };
             // newTabItem.SetBinding(Button.IsEnabledProperty, "IsEnabledOtherElements");
             categories.Add(newTabItem);

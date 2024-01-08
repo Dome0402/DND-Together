@@ -36,6 +36,7 @@ namespace DND_Together.Commands
                 TabItem newTabItem = new()
                 {
                     Header = _overviewTabViewModel.PageName,
+                    Style = Application.Current.Resources["InnerTabControlItemStyle"] as Style
                 };
                 WebView2 webView = new WebView2();
                 Initialize_WebView(webView, new Uri(_overviewTabViewModel.PageUrl));

@@ -8,15 +8,18 @@ using System.Xml.Serialization;
 namespace DND_Together.MVVM.Model
 {
     [Serializable]
-    [XmlRoot("Scene")]
-    public class Scene
+    public class Category
     {
-        [XmlElement("Name")]
+        [XmlElement("CatName")]
         public string Name { get; set; }
 
-        [XmlArray("Categories")]
-        [XmlArrayItem("Category")]
-        public List<Category> Categories { get; set; } = new();
-        public Scene() { }
+        [XmlArray("Pages")]
+        [XmlArrayItem("Page")]
+        public List<Page> Pages { get; set; }
+
+        public Category()
+        {
+            Pages = new List<Page>();
+        }
     }
 }

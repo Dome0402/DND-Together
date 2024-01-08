@@ -1,4 +1,5 @@
 ﻿using DND_Together.Commands;
+using DND_Together.MVVM.Model;
 using DND_Together.MVVM.View;
 using Microsoft.Web.WebView2.Wpf;
 
@@ -126,7 +127,6 @@ namespace DND_Together.MVVM.ViewModels
 
 
         private string _contentButtonEditPage;
-
         public string ContentButtonEditPage
         {
             get { return _contentButtonEditPage; }
@@ -150,6 +150,9 @@ namespace DND_Together.MVVM.ViewModels
         public ICommand EditPageCommand { get; }
         public ICommand DeletePageCommand { get; }
 
+        public ICommand OpenSceneCommand { get; }
+        public ICommand SaveSceneCommand { get; }
+
         public ICommand CategoryNameTextBoxOnEnterCommand { get; }
 
 
@@ -159,6 +162,12 @@ namespace DND_Together.MVVM.ViewModels
         public bool IsCategoryEditing { get; set; }
 
         public bool IsPageEditing { get; set; }
+
+        public bool AreChanges { get; set; }
+
+        public Scene Scene { get; set; } = new();
+
+        public Dictionary<string, Model.Page> Pages { get; set; } = new();
 
         public OverviewTabViewModel()
         {
@@ -170,11 +179,17 @@ namespace DND_Together.MVVM.ViewModels
             EditPageCommand = new EditPageCommand(this);
             DeletePageCommand = new DeletePageCommand(this);
 
+            OpenSceneCommand = new OpenSceneCommand(this);
+            SaveSceneCommand = new SaveSceneCommand(this);
+
             CategoryNameTextBoxOnEnterCommand = new CategoryNameTextBoxOnEnter(this);
+
+            CategoryTabs = new();
 
             IsEnabledEditCategory = true;
             IsEnabledEditPage = true;
             IsEnabledOtherElements = true;
+            AreChanges = false;
 
             ContentButtonEditCategory = "⚙";
             ContentButtonEditPage = "⚙";
