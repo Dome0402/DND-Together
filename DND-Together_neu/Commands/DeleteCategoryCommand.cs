@@ -33,6 +33,7 @@ namespace DND_Together.Commands
                         Debug.Print("Kategorie konnte nicht gelöscht werden.");
                     }
                 }
+                _overviewTabViewModel.AreChanges = true;
             }
         }
 

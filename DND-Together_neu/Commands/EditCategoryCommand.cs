@@ -26,7 +26,7 @@ namespace DND_Together.Commands
                     catName = _overviewTabViewModel.CategoryName;
                 }
 
-                // If category is being edited
+                // If no category is being edited
                 if (!_overviewTabViewModel.IsCategoryEditing)
                 {
                     // Alle anderen Tabs deaktivieren
@@ -47,7 +47,7 @@ namespace DND_Together.Commands
 
                     _overviewTabViewModel.IsCategoryEditing = true;
                 }
-                // If no category is being edited
+                // If category is being edited
                 else
                 {
 
@@ -72,6 +72,7 @@ namespace DND_Together.Commands
                     _overviewTabViewModel.CategoryName = "";
 
                     _overviewTabViewModel.IsCategoryEditing = false;
+                    _overviewTabViewModel.AreChanges = true;
                 }
             }
 

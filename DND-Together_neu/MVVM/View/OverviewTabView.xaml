@@ -63,7 +63,7 @@
                 <MenuItem Name="menuOpen" Command="{Binding OpenSceneCommand}" Header="Öffnen"/>
                 <MenuItem Name="menuSave" Command="{Binding SaveSceneCommand}" Header="Speichern"/>
                 <Separator/>
-                <MenuItem Name="menuClose" Header="Beenden"/>
+                <MenuItem Name="menuClose" Command="{Binding CloseApplicationCommand}" Header="Beenden"/>
             </MenuItem>
             <MenuItem Header="Bearbeiten">
 

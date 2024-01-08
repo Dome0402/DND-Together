@@ -22,5 +22,21 @@ namespace DND_Together.MVVM.View
         {
             InitializeComponent();
         }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            if(((this.DataContext as MainViewModel).CurrentViewModel as OverviewTabViewModel).AreChanges)
+            {
+                MessageBoxResult result = MessageBox.Show("Es sind noch ungespeicherte Änderungen vorhanden. Möchten Sie diese vorher speichern?", "Achtung!", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+                else if (result == MessageBoxResult.Yes)
+                {
+                    ((this.DataContext as MainViewModel).CurrentViewModel as OverviewTabViewModel).SaveSceneCommand.Execute(this);
+                }
+            }
+        }
     }
 }

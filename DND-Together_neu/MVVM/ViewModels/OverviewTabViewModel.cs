@@ -152,6 +152,7 @@ namespace DND_Together.MVVM.ViewModels
 
         public ICommand OpenSceneCommand { get; }
         public ICommand SaveSceneCommand { get; }
+        public ICommand CloseApplicationCommand { get; }
 
         public ICommand CategoryNameTextBoxOnEnterCommand { get; }
 
@@ -181,6 +182,7 @@ namespace DND_Together.MVVM.ViewModels
 
             OpenSceneCommand = new OpenSceneCommand(this);
             SaveSceneCommand = new SaveSceneCommand(this);
+            CloseApplicationCommand = new CloseApplicationCommand(this);
 
             CategoryNameTextBoxOnEnterCommand = new CategoryNameTextBoxOnEnter(this);
 

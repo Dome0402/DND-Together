@@ -23,7 +23,7 @@ namespace DND_Together.Commands
                 // If a page is selected
                 if(currentPage != null)
                 {
-                    // If page is being edited
+                    // If no page is being edited
                     if (!_overviewTabViewModel.IsPageEditing)
                     {
                         // Disable all pages
@@ -46,7 +46,7 @@ namespace DND_Together.Commands
 
                         _overviewTabViewModel.IsPageEditing = true;
                     }
-                    // If no page is being edited
+                    // If page is being edited
                     else
                     {
                         try
@@ -79,6 +79,7 @@ namespace DND_Together.Commands
                         _overviewTabViewModel.IsEnabledOtherElements = true;
 
                         _overviewTabViewModel.IsPageEditing = false;
+                        _overviewTabViewModel.AreChanges = true;
                     }
                 }
             }

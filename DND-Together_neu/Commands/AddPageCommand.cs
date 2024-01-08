@@ -62,6 +62,7 @@ namespace DND_Together.Commands
 
                 _overviewTabViewModel.PageName = "";
                 _overviewTabViewModel.PageUrl = "";
+                _overviewTabViewModel.AreChanges = true;
             }
         }
 

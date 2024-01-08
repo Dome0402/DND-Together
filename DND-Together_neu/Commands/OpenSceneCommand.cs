@@ -18,6 +18,10 @@ namespace DND_Together.Commands
         OverviewTabViewModel _overviewTabViewModel;
         public override void Execute(object parameter)
         {
+            if (_overviewTabViewModel.AreChanges && MessageBox.Show("Sie haben die Sitzung nicht gespeichert! Ohne Speichern fortfahren?", "Achtung!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                return;
+            }
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "DnD-Together Szenen(*.dndts)|*.dndts";
             dialog.DefaultDirectory = System.IO.Directory.GetCurrentDirectory();
@@ -29,6 +33,7 @@ namespace DND_Together.Commands
 
         private void LoadScene(string fileName)
         {
+            
             try
             {
                 // Clear TabControl and every Page and WebView in it hoping to free up memory

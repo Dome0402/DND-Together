@@ -37,6 +37,7 @@ namespace DND_Together.Commands
 
                 }
             }
+            _overviewTabViewModel.AreChanges = true;
 
             Debug.Print("Seite \"" + _overviewTabViewModel.PageName + "\" und der URL: \"" + _overviewTabViewModel.PageUrl + "\" wurde gelöscht!");
         }
