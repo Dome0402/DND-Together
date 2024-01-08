@@ -51,8 +51,8 @@ namespace DND_Together.Commands
                 }
                 XML.SaveScene(scene, saveFileDialog.FileName);
                 Application.Current.Windows[0].Title = "D&D Together - " + scene.Name;
+                _overviewTabViewModel.AreChanges = false;
             }
-            _overviewTabViewModel.AreChanges = false;
         }
 
         public SaveSceneCommand(OverviewTabViewModel overviewTabViewModel)
