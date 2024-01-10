@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 
-namespace DND_Together_neu.Model
+namespace DND_Together.MVVM.Model
 {
     public static class XML
     {
@@ -24,15 +24,10 @@ namespace DND_Together_neu.Model
         /// If no "Data"-Folder exists it creates a new one.
         /// </summary>
         /// <param name="tabControls">Parent TabControl where each Tab contains another TabControl with Tabs (pages)</param>
-        public static void SaveScene(Scene scene)
+        public static void SaveScene(Scene scene, string path)
         {
-            string path = "./Data/";
-            if(!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Scene));
-            TextWriter textWriter = new StreamWriter(path + scene.Name + ".dndts");
+            TextWriter textWriter = new StreamWriter(path);
 
             xmlSerializer.Serialize(textWriter, scene);
             textWriter.Close();

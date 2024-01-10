@@ -1,5 +1,4 @@
 ﻿using DND_Together.MVVM.ViewModels;
-using DND_Together.MVVM.View;
 using System.Configuration;
 using System.Data;
 using System.Windows;

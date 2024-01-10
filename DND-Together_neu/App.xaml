@@ -1,9 +1,111 @@
-﻿<Application x:Class="DND_Together_neu.App"
+﻿<Application x:Class="DND_Together.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:DND_Together_neu"
-             StartupUri="View/MainWindow.xaml">
+             xmlns:local="clr-namespace:DND_Together">
     <Application.Resources>
-         
+        <Style x:Key="InnerTabControlStyle" TargetType="TabControl">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabControl">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <!-- Row für Tabs -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- Row für den Inhalt -->
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- TabPanel -->
+                            <TabPanel x:Name="HeaderPanel"
+                              Grid.Row="0"
+                              Panel.ZIndex="1"
+                              Margin="2,0,2,0"
+                              IsItemsHost="True"/>
+
+                            <!-- Border für den Inhalt -->
+                            <Border x:Name="ContentBorder"
+                            Grid.Row="1"
+                            BorderBrush="#9FC0F5"
+                            BorderThickness="0,2,0,0">
+                                <ContentPresenter x:Name="PART_SelectedContentHost"
+                                          ContentSource="SelectedContent"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="OuterTabControlStyle" TargetType="TabControl">
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="TabStripPlacement" Value="Left" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabControl">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <!-- Platz für die TabItems auf der linken Seite -->
+                                <ColumnDefinition Width="*"/>
+                                <!-- Inhalt des ausgewählten TabItems -->
+                            </Grid.ColumnDefinitions>
+
+                            <!-- TabStrip auf der linken Seite -->
+                            <TabPanel Grid.Column="0" Panel.ZIndex="1" IsItemsHost="True" />
+
+                            <!-- Bereich für den Inhalt des ausgewählten TabItems -->
+                            <Border Grid.Column="1" BorderBrush="#9FC0F5" BorderThickness="2,0,0,0">
+                                <ContentPresenter ContentSource="SelectedContent"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="OuterTabControlItemStyle" TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Name="Border" BorderThickness="2,2,0,2" BorderBrush="#9FC0F5" CornerRadius="4,0,0,4" Margin="5,2,0,2" Padding="20,10,20,10">
+                            <ContentPresenter x:Name="ContentSite"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    ContentSource="Header"
+                    Margin="10,2"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#9FDBF4" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="InnerTabControlItemStyle" TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Name="Border" BorderThickness="2,2,2,0" BorderBrush="#9FC0F5" CornerRadius="4,4,0,0" Margin="2,0">
+                            <ContentPresenter x:Name="ContentSite"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            ContentSource="Header"
+            Margin="10,2"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#9FDBF4" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

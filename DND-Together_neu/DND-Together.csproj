@@ -3,12 +3,19 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
-    <RootNamespace>DND_Together_neu</RootNamespace>
+    <RootNamespace>DND_Together</RootNamespace>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-
+<!--
+  <ItemGroup>
+    <Compile Remove="MVVM\ViewModel\**" />
+    <EmbeddedResource Remove="MVVM\ViewModel\**" />
+    <None Remove="MVVM\ViewModel\**" />
+    <Page Remove="MVVM\ViewModel\**" />
+  </ItemGroup>
+-->
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2210.55" />
   </ItemGroup>

@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DND-Together_neu\DND-Together_neu.csproj" />
+    <ProjectReference Include="..\DND-Together_neu\DND-Together.csproj" />
   </ItemGroup>
 
 </Project>
