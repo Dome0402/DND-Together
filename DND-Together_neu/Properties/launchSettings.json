@@ -1,8 +1,7 @@
 {
   "profiles": {
     "DND-Together": {
-      "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\Dominik\\Desktop\\DND Together\\Data\\dzuofss.dndts\""
+      "commandName": "Project"
     }
   }
 }

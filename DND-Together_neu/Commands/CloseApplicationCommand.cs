@@ -21,7 +21,9 @@ namespace DND_Together.Commands
 
         public override void Execute(object parameter)
         {
-            if (Consts.SceneHasChanged(_overviewTabViewModel) && MessageBox.Show("Sie haben die Sitzung nicht gespeichert! Ohne Speichern beenden?", "Achtung!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            if (Consts.SceneHasChanged(_overviewTabViewModel) && 
+
+                MessageBox.Show("Sie haben die Sitzung nicht gespeichert! Ohne Speichern beenden?", "Achtung!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                 if(parameter.GetType() == typeof(CancelEventArgs))
                 {

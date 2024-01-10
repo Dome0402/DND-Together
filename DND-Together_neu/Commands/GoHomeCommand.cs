@@ -15,8 +15,9 @@ namespace DND_Together.Commands
         OverviewTabViewModel _overviewTabViewModel;
         public override void Execute(object parameter)
         {
+            if (_overviewTabViewModel.Scene.Categories == null || _overviewTabViewModel.SelectedCategory == null || _overviewTabViewModel.SelectedCategory.Content == null)
+                return;
             TabItem currentPage = (TabItem)(_overviewTabViewModel.SelectedCategory.Content as TabControl).SelectedItem;
-
             foreach (Category category in _overviewTabViewModel.Scene.Categories)
             {
                 foreach(MVVM.Model.Page page in category.Pages)
