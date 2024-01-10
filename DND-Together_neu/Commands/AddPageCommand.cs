@@ -1,4 +1,5 @@
-﻿using DND_Together.MVVM.ViewModels;
+﻿using DND_Together.MVVM.Model;
+using DND_Together.MVVM.ViewModels;
 using Microsoft.Web.WebView2.Wpf;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,7 @@ namespace DND_Together.Commands
                     }
                 }
 
+
                 TabItem newTabItem = new()
                 {
                     Header = _overviewTabViewModel.PageName,
@@ -42,8 +44,21 @@ namespace DND_Together.Commands
                 Initialize_WebView(webView, new Uri(_overviewTabViewModel.PageUrl));
                 newTabItem.Content = webView;
                 List<TabItem> catPages = new List<TabItem>();
-                
-                foreach(TabItem p in pages.ItemsSource)
+
+                foreach (Category category in _overviewTabViewModel.Scene.Categories)
+                {
+                    if (category.Name == _overviewTabViewModel.SelectedCategory.Header.ToString())
+                    {
+                        category.Pages.Add(new MVVM.Model.Page()
+                        {
+                            Title = newTabItem.Header.ToString(),
+                            Url = _overviewTabViewModel.PageUrl,
+                            HomeUrl = _overviewTabViewModel.PageUrl
+                        });
+                    }
+                }
+
+                foreach (TabItem p in pages.ItemsSource)
                 {
                     catPages.Add(p);
                 }
@@ -62,7 +77,6 @@ namespace DND_Together.Commands
 
                 _overviewTabViewModel.PageName = "";
                 _overviewTabViewModel.PageUrl = "";
-                _overviewTabViewModel.AreChanges = true;
             }
         }
 

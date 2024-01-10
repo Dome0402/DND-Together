@@ -49,7 +49,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
         </Grid.ColumnDefinitions>
@@ -96,10 +96,11 @@
                     SelectedItem="{Binding SelectedCategory}"
                     Style="{StaticResource OuterTabControlStyle}"/>
 
+
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="20"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
@@ -122,18 +123,19 @@
 
             <Grid Grid.Column="2">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
-
-                <TextBox Name="tf_PageName" IsEnabled="{Binding IsEnabledEditPage}" Text="{Binding PageName}" ToolTip="Name der Seite" Grid.Column="0" Margin="2" FontSize="16" VerticalContentAlignment="Center"/>
-                <TextBox Name="tf_PageUrl" IsEnabled="{Binding IsEnabledEditPage}" Text="{Binding PageUrl}" ToolTip="URL der Seite" Grid.Column="1" Margin="2" FontSize="16" VerticalContentAlignment="Center"/>
-                <Button Name="btn_AddPage" IsEnabled="{Binding IsEnabledOtherElements}" Command="{Binding AddPageCommand}" Content="+" Grid.Column="2" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
-                <Button Name="btn_EditPage" IsEnabled="{Binding IsEnabledEditPage}" Command="{Binding EditPageCommand}" Content="{Binding ContentButtonEditPage}" Grid.Column="3" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
-                <Button Name="btn_DeletePage" IsEnabled="{Binding IsEnabledOtherElements}" Command="{Binding DeletePageCommand}" Content="x" Grid.Column="4" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
+                <Button Name="btn_Home" IsEnabled="{Binding IsEnabledOtherElements}" Command="{Binding GoHomeCommand}" Content="🏠" ToolTip="Zurück zur gespeicherten Seite" Grid.Column="0" Margin="2" FontSize="16" VerticalContentAlignment="Center"/>
+                <TextBox Name="tf_PageName" IsEnabled="{Binding IsEnabledEditPage}" Text="{Binding PageName}" ToolTip="Name der Seite" Grid.Column="1" Margin="2" FontSize="16" VerticalContentAlignment="Center"/>
+                <TextBox Name="tf_PageUrl" IsEnabled="{Binding IsEnabledEditPage}" Text="{Binding PageUrl}" ToolTip="URL der Seite" Grid.Column="2" Margin="2" FontSize="16" VerticalContentAlignment="Center"/>
+                <Button Name="btn_AddPage" IsEnabled="{Binding IsEnabledOtherElements}" Command="{Binding AddPageCommand}" Content="+" Grid.Column="3" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
+                <Button Name="btn_EditPage" IsEnabled="{Binding IsEnabledEditPage}" Command="{Binding EditPageCommand}" Content="{Binding ContentButtonEditPage}" Grid.Column="4" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
+                <Button Name="btn_DeletePage" IsEnabled="{Binding IsEnabledOtherElements}" Command="{Binding DeletePageCommand}" Content="x" Grid.Column="5" FontSize="16" Margin="2" VerticalContentAlignment="Center" Padding="0,0,1,5"/>
 
             </Grid>
         </Grid>

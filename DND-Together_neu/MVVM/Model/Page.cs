@@ -14,6 +14,8 @@ namespace DND_Together.MVVM.Model
         public string Title {  get; set; }
         [XmlElement("Url")]
         public string Url {  get; set; }
+        [XmlElement("Home")]
+        public string HomeUrl {  get; set; }
         public Page()
         {
 

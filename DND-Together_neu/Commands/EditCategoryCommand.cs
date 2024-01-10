@@ -72,7 +72,6 @@ namespace DND_Together.Commands
                     _overviewTabViewModel.CategoryName = "";
 
                     _overviewTabViewModel.IsCategoryEditing = false;
-                    _overviewTabViewModel.AreChanges = true;
                 }
             }
 

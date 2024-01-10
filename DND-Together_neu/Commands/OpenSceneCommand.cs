@@ -26,7 +26,7 @@ namespace DND_Together.Commands
                 LoadSceneAsync((string)parameter);
                 return;
             }
-            if (_overviewTabViewModel.AreChanges && MessageBox.Show("Sie haben die Sitzung nicht gespeichert! Ohne Speichern fortfahren?", "Achtung!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            if (Consts.SceneHasChanged(_overviewTabViewModel) && MessageBox.Show("Sie haben die Sitzung nicht gespeichert! Ohne Speichern fortfahren?", "Achtung!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                 return;
             }
@@ -64,6 +64,7 @@ namespace DND_Together.Commands
 
                 // Load Scene from file to Scene object
                 Scene scene = XML.LoadScene(fileName);
+                _overviewTabViewModel.Path = fileName;
                 List<TabItem> categories = new();
 
                 // For every Category
@@ -109,13 +110,27 @@ namespace DND_Together.Commands
                 _overviewTabViewModel.SelectedCategory = _overviewTabViewModel.CategoryTabs.Last();
 
                 Application.Current.Windows[0].Title = "D&D Together - " + scene.Name;
+                _overviewTabViewModel.Scene = scene;
+
+                if(scene.Version != Consts.XmlVersion)
+                {
+                    MessageBox.Show("Es wurde eine veraltete Datei geöffnet.\nSie wird nun aktualisiert...", "Veraltete Datei-Version", MessageBoxButton.OK, MessageBoxImage.Information);
+                    foreach(Category cat in scene.Categories)
+                    {
+                        foreach(MVVM.Model.Page page in cat.Pages)
+                        {
+                            page.HomeUrl = page.Url;
+                        }
+                    }
+                    scene.Version = Consts.XmlVersion;
+                    _overviewTabViewModel.SaveSceneCommand.Execute(scene);
+                }
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Fehler beim Laden der Szene aufgetreten.\n" + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            _overviewTabViewModel.AreChanges = false;
         }
 
         private void Initialize_WebView(WebView2 webView, Uri url)

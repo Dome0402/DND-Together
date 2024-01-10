@@ -1,4 +1,5 @@
-﻿using DND_Together.MVVM.ViewModels;
+﻿using DND_Together.MVVM.Model;
+using DND_Together.MVVM.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,6 +24,17 @@ namespace DND_Together.Commands
                     List<TabItem> categories = _overviewTabViewModel.CategoryTabs.ToList();
                     if (categories.Contains(_overviewTabViewModel.SelectedCategory))
                     {
+                        // Delete Category from local scene object
+                        foreach (Category category in _overviewTabViewModel.Scene.Categories)
+                        {
+                            if (category.Name == _overviewTabViewModel.SelectedCategory.Header.ToString())
+                            {
+                                _overviewTabViewModel.Scene.Categories.Remove(category);
+                                break;
+                            }
+                        }
+
+                        // Delete Category from ItemsSource of TabControl
                         categories.Remove(_overviewTabViewModel.SelectedCategory);
 
                         Debug.Print("Kategorie \"" + _overviewTabViewModel.SelectedCategory.Header.ToString() + "\" gelöscht");
@@ -33,7 +45,7 @@ namespace DND_Together.Commands
                         Debug.Print("Kategorie konnte nicht gelöscht werden.");
                     }
                 }
-                _overviewTabViewModel.AreChanges = true;
+                
             }
         }
 

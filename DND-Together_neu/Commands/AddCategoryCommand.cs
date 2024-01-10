@@ -1,13 +1,16 @@
 ﻿using DND_Together.MVVM.Model;
 using DND_Together.MVVM.ViewModels;
+using Microsoft.Web.WebView2.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Xml.Linq;
 
 namespace DND_Together.Commands
@@ -59,17 +62,31 @@ namespace DND_Together.Commands
                 {
                     Style = Application.Current.Resources["InnerTabControlStyle"] as Style
                 },
-                Style = Application.Current.Resources["OuterTabControlItemStyle"] as Style
+                Style = Application.Current.Resources["OuterTabControlItemStyle"] as Style,
+                ContextMenu = new ContextMenu()
+                {
+                    Items = 
+                    {
+                        new MenuItem()
+                        {
+                            Header = "Löschen (W.I.P.)"
+                        },
+                    }
+                }
             };
             // newTabItem.SetBinding(Button.IsEnabledProperty, "IsEnabledOtherElements");
             categories.Add(newTabItem);
             _overviewTabViewModel.CategoryTabs = categories;
+            _overviewTabViewModel.Scene.Categories.Add(new Category()
+            {
+                Name = catName
+            });
+
 
             Debug.Print("Kategorie \"" + _overviewTabViewModel.CategoryName + "\" hinzugefügt");
 
             _overviewTabViewModel.CategoryName = "";
             _overviewTabViewModel.SelectedCategory = _overviewTabViewModel.CategoryTabs.Last();
-            _overviewTabViewModel.AreChanges = true;
 
         }
         public AddCategoryCommand(OverviewTabViewModel overviewTabViewModel)

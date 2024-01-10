@@ -26,14 +26,8 @@ namespace DND_Together.MVVM.View
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            if(((this.DataContext as MainViewModel).CurrentViewModel as OverviewTabViewModel).AreChanges)
-            {
-                MessageBoxResult result = MessageBox.Show("Sie haben die Sitzung nicht gespeichert! Ohne Speichern beenden?", "Achtung!", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                if (result == MessageBoxResult.No)
-                {
-                    e.Cancel = true;
-                }
-            }
+            ((this.DataContext as MainViewModel).CurrentViewModel as OverviewTabViewModel).CloseApplicationCommand.Execute(e);
+            
         }
     }
 }

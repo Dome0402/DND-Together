@@ -155,6 +155,7 @@ namespace DND_Together.MVVM.ViewModels
         public ICommand CloseApplicationCommand { get; }
 
         public ICommand CategoryNameTextBoxOnEnterCommand { get; }
+        public ICommand GoHomeCommand { get; }
 
 
         //
@@ -164,11 +165,10 @@ namespace DND_Together.MVVM.ViewModels
 
         public bool IsPageEditing { get; set; }
 
-        public bool AreChanges { get; set; }
-
         public Scene Scene { get; set; } = new();
 
         public Dictionary<string, Model.Page> Pages { get; set; } = new();
+        public string Path { get; set; }
 
         public OverviewTabViewModel()
         {
@@ -185,12 +185,12 @@ namespace DND_Together.MVVM.ViewModels
             CloseApplicationCommand = new CloseApplicationCommand(this);
 
             CategoryNameTextBoxOnEnterCommand = new CategoryNameTextBoxOnEnter(this);
+            GoHomeCommand = new GoHomeCommand(this);
 
 
             IsEnabledEditCategory = true;
             IsEnabledEditPage = true;
             IsEnabledOtherElements = true;
-            AreChanges = false;
 
             ContentButtonEditCategory = "⚙";
             ContentButtonEditPage = "⚙";

@@ -1,9 +1,11 @@
-﻿using DND_Together.MVVM.ViewModels;
+﻿using DND_Together.MVVM.Model;
+using DND_Together.MVVM.ViewModels;
 using Microsoft.Web.WebView2.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -41,8 +43,24 @@ namespace DND_Together.Commands
 
                         _overviewTabViewModel.ContentButtonEditPage = "✓";
 
+                        string url = "";
+                        foreach(Category cat in _overviewTabViewModel.Scene.Categories)
+                        {
+                            if(url != "")
+                                break;
+                            
+                            foreach(MVVM.Model.Page p in cat.Pages)
+                            {
+                                if(p.Title == currentPage.Header.ToString())
+                                {
+                                    url = p.HomeUrl;
+                                    break;
+                                }
+                            }
+                        }
+
                         _overviewTabViewModel.PageName = currentPage.Header.ToString();
-                        _overviewTabViewModel.PageUrl = (currentPage.Content as WebView2).Source.ToString();
+                        _overviewTabViewModel.PageUrl = url;
 
                         _overviewTabViewModel.IsPageEditing = true;
                     }
@@ -60,8 +78,6 @@ namespace DND_Together.Commands
                         }
                         currentPage.Header = _overviewTabViewModel.PageName;
 
-                        _overviewTabViewModel.PageName = "";
-                        _overviewTabViewModel.PageUrl = "";
 
                         _overviewTabViewModel.ContentButtonEditPage = "⚙";
                         // Enable all Pages
@@ -75,11 +91,28 @@ namespace DND_Together.Commands
                         {
                             category.IsEnabled = true;
                         }
+
+                        foreach (Category cat in _overviewTabViewModel.Scene.Categories)
+                        {
+                            foreach (MVVM.Model.Page p in cat.Pages)
+                            {
+                                if (p.Title == currentPage.Header.ToString())
+                                {
+                                    p.Url = _overviewTabViewModel.PageUrl;
+                                    p.HomeUrl = _overviewTabViewModel.PageUrl;
+                                    break;
+                                }
+                            }
+                        }
+
                         _overviewTabViewModel.IsEnabledEditCategory = true;
                         _overviewTabViewModel.IsEnabledOtherElements = true;
 
                         _overviewTabViewModel.IsPageEditing = false;
-                        _overviewTabViewModel.AreChanges = true;
+
+
+                        _overviewTabViewModel.PageName = "";
+                        _overviewTabViewModel.PageUrl = "";
                     }
                 }
             }
