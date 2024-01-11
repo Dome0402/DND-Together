@@ -23,9 +23,9 @@ namespace DND_Together.Commands
             {
                 TabControl pages = _overviewTabViewModel.SelectedCategory.Content as TabControl;
                 if(pages == null) pages = new TabControl();
-                if(pages.ItemsSource == null) pages.ItemsSource = new List<TabItem>();
+                if(pages.Items == null) pages.ItemsSource = new List<TabItem>();
 
-                foreach(TabItem page in pages.ItemsSource)
+                foreach(TabItem page in pages.Items)
                 {
                     if(page.Header.ToString() == _overviewTabViewModel.PageName)
                     {
@@ -58,12 +58,13 @@ namespace DND_Together.Commands
                     }
                 }
 
-                foreach (TabItem p in pages.ItemsSource)
+                foreach (TabItem p in pages.Items)
                 {
                     catPages.Add(p);
                 }
                 catPages.Add(newTabItem);
-
+                if(pages.Items != null && pages.Items.Count > 0 && pages.ItemsSource == null) pages.Items.Clear();
+                
                 pages.ItemsSource = catPages;
 
                 // List<TabItem> newCategories = _overviewTabViewModel.CategoryTabs.ToList();
