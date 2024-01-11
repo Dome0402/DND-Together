@@ -1,4 +1,5 @@
-﻿using DND_Together.MVVM.ViewModels;
+﻿using DND_Together.MVVM.Model;
+using DND_Together.MVVM.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -61,8 +62,12 @@ namespace DND_Together.Commands
                         }
                     }
 
+                    foreach(Category category in _overviewTabViewModel.Scene.Categories)
+                    {
+                        if (_overviewTabViewModel.SelectedCategory.Header.ToString() == category.Name)
+                            category.Name = catName;
+                    }
                     _overviewTabViewModel.SelectedCategory.Header = catName;
-
 
                     _overviewTabViewModel.IsEnabledOtherElements = true;
                     _overviewTabViewModel.IsEnabledEditPage = true;
