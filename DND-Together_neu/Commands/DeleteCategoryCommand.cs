@@ -11,9 +11,11 @@ using System.Windows.Controls;
 
 namespace DND_Together.Commands
 {
-    public class DeleteCategoryCommand : CommandBase
+    public class DeleteCategoryCommand : CommandBaseUndoRedo
     {
         private readonly OverviewTabViewModel _overviewTabViewModel;
+
+        private CategoryMemento _addedCategoryMemento;
         public override void Execute(object parameter)
         {
 
@@ -39,6 +41,14 @@ namespace DND_Together.Commands
 
                         Debug.Print("Kategorie \"" + _overviewTabViewModel.SelectedCategory.Header.ToString() + "\" gelöscht");
                         _overviewTabViewModel.CategoryTabs = categories;
+
+                        // For Undo
+                        _addedCategoryMemento = new()
+                        {
+                            CategoryTabs = _overviewTabViewModel.CategoryTabs,
+                            SelectedCategory = _overviewTabViewModel.SelectedCategory,
+                        };
+                        _overviewTabViewModel.UndoRedoManager.ExecuteCommand(this);
                     }
                     else
                     {
@@ -46,6 +56,15 @@ namespace DND_Together.Commands
                     }
                 }
                 
+            }
+        }
+
+        public override void Undo()
+        {
+            if (_addedCategoryMemento != null)
+            {
+                _overviewTabViewModel.CategoryTabs = _addedCategoryMemento.CategoryTabs;
+                _overviewTabViewModel.SelectedCategory = _addedCategoryMemento.SelectedCategory;
             }
         }
 

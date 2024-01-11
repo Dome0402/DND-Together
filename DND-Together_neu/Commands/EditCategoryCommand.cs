@@ -1,4 +1,5 @@
-﻿using DND_Together.MVVM.ViewModels;
+﻿using DND_Together.MVVM.Model;
+using DND_Together.MVVM.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,9 +10,11 @@ using System.Windows.Controls;
 
 namespace DND_Together.Commands
 {
-    public class EditCategoryCommand : CommandBase
+    public class EditCategoryCommand : CommandBaseUndoRedo
     {
         private readonly OverviewTabViewModel _overviewTabViewModel;
+
+        private CategoryMemento _addedCategoryMemento;
         public override void Execute(object parameter)
         {
             if (_overviewTabViewModel.SelectedCategory != null)
@@ -72,12 +75,30 @@ namespace DND_Together.Commands
                     _overviewTabViewModel.CategoryName = "";
 
                     _overviewTabViewModel.IsCategoryEditing = false;
+
+                    // For Undo
+                    _addedCategoryMemento = new()
+                    {
+                        CategoryTabs = _overviewTabViewModel.CategoryTabs,
+                        SelectedCategory = _overviewTabViewModel.SelectedCategory,
+                    };
+                    _overviewTabViewModel.UndoRedoManager.ExecuteCommand(this);
                 }
             }
 
 
             Debug.Print("Kategorie \"" + _overviewTabViewModel.CategoryName + "\" bearbeitet");
         }
+
+        public override void Undo()
+        {
+            if(_addedCategoryMemento != null)
+            {
+                _overviewTabViewModel.CategoryTabs = _addedCategoryMemento.CategoryTabs;
+                _overviewTabViewModel.SelectedCategory = _addedCategoryMemento.SelectedCategory;
+            }
+        }
+
         public EditCategoryCommand(OverviewTabViewModel overviewTabViewModel)
         {
             _overviewTabViewModel = overviewTabViewModel;

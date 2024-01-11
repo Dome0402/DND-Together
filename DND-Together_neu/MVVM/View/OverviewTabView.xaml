@@ -67,8 +67,8 @@
                 <MenuItem Name="menuClose" Command="{Binding CloseApplicationCommand}" Header="Beenden" InputGestureText="Strg+X"/>
             </MenuItem>
             <MenuItem Header="Bearbeiten">
-                <MenuItem Name="menuUndo" Icon="⮌" Header="Rückgängig (W.I.P.)" InputGestureText="Strg+Z"/>
-                <MenuItem Name="menuRedo" Icon="⮎" Header="Wiederholen (W.I.P.)" InputGestureText="Strg+Y"/>
+                <MenuItem Name="menuUndo" Command="{Binding UndoCommand}" Icon="⮌" Header="Rückgängig (W.I.P.)" InputGestureText="Strg+Z"/>
+                <MenuItem Name="menuRedo" Command="{Binding RedoCommand}" Icon="⮎" Header="Wiederholen (W.I.P.)" InputGestureText="Strg+Y"/>
             </MenuItem>
             <MenuItem Header="Ansicht">
                 <MenuItem Header="Schriftgröße (W.I.P.)">

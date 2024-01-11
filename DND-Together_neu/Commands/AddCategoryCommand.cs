@@ -15,9 +15,12 @@ using System.Xml.Linq;
 
 namespace DND_Together.Commands
 {
-    public class AddCategoryCommand : CommandBase
+    public class AddCategoryCommand : CommandBaseUndoRedo
     {
         private readonly OverviewTabViewModel _overviewTabViewModel;
+
+        private CategoryMemento _addedCategoryMemento;
+
         public override void Execute(object parameter)
         {
             if( ((string)parameter == "" && _overviewTabViewModel.CategoryName == null) || 
@@ -42,6 +45,15 @@ namespace DND_Together.Commands
             {
                 _overviewTabViewModel.CategoryTabs = new List<TabItem>();
             }
+            // For Undo
+            _addedCategoryMemento = new()
+            {
+                CategoryTabs = _overviewTabViewModel.CategoryTabs,
+                SelectedCategory = _overviewTabViewModel.SelectedCategory
+            };
+            _overviewTabViewModel.UndoRedoManager.ExecuteCommand(this);
+            
+            
             List<TabItem> categories = _overviewTabViewModel.CategoryTabs.ToList();
             if(categories != null && categories.Count() > 0)
             {
@@ -88,7 +100,18 @@ namespace DND_Together.Commands
             _overviewTabViewModel.CategoryName = "";
             _overviewTabViewModel.SelectedCategory = _overviewTabViewModel.CategoryTabs.Last();
 
+            
         }
+
+        public override void Undo()
+        {
+            if(_addedCategoryMemento != null)
+            {
+                _overviewTabViewModel.CategoryTabs = _addedCategoryMemento.CategoryTabs;
+                _overviewTabViewModel.SelectedCategory = _addedCategoryMemento.SelectedCategory;
+            }
+        }
+
         public AddCategoryCommand(OverviewTabViewModel overviewTabViewModel)
         {
             _overviewTabViewModel = overviewTabViewModel;

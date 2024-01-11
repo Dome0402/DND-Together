@@ -157,6 +157,9 @@ namespace DND_Together.MVVM.ViewModels
         public ICommand CategoryNameTextBoxOnEnterCommand { get; }
         public ICommand GoHomeCommand { get; }
 
+        public ICommand UndoCommand { get; }
+        public ICommand RedoCommand { get; }
+
 
         //
         // Local Variables
@@ -169,7 +172,7 @@ namespace DND_Together.MVVM.ViewModels
 
         public Dictionary<string, Model.Page> Pages { get; set; } = new();
         public string Path { get; set; }
-
+        public UndoRedoManager UndoRedoManager { get; set; }
         public OverviewTabViewModel()
         {
             AddCategoryCommand = new AddCategoryCommand(this);
@@ -187,6 +190,9 @@ namespace DND_Together.MVVM.ViewModels
             CategoryNameTextBoxOnEnterCommand = new CategoryNameTextBoxOnEnter(this);
             GoHomeCommand = new GoHomeCommand(this);
 
+            UndoCommand = new UndoCommand(this);
+            RedoCommand = new RedoCommand(this);
+            UndoRedoManager = new UndoRedoManager(this);
 
             IsEnabledEditCategory = true;
             IsEnabledEditPage = true;
@@ -196,6 +202,7 @@ namespace DND_Together.MVVM.ViewModels
             ContentButtonEditPage = "⚙";
 
 
+            // This last so when loading and opening directly from a file everything is existing and ready
             OpenSceneCommand = new OpenSceneCommand(this);
         }
     }
