@@ -76,8 +76,24 @@ namespace DND_Together.Commands
                             MessageBox.Show("Es muss eine gültige URL eingegeben werden.");
                             return;
                         }
-                        currentPage.Header = _overviewTabViewModel.PageName;
 
+
+                        foreach(Category cat in _overviewTabViewModel.Scene.Categories)
+                        {
+                            if(cat.Name == _overviewTabViewModel.SelectedCategory.Header.ToString())
+                            {
+                                foreach(MVVM.Model.Page p in cat.Pages)
+                                {
+                                    if(p.Title == currentPage.Header.ToString())
+                                    {
+                                        currentPage.Header = _overviewTabViewModel.PageName;
+                                        p.Title = _overviewTabViewModel.PageName;
+                                        p.Url = _overviewTabViewModel.PageUrl;
+                                        p.HomeUrl = _overviewTabViewModel.PageUrl;
+                                    }
+                                }
+                            }
+                        }
 
                         _overviewTabViewModel.ContentButtonEditPage = "⚙";
                         // Enable all Pages
