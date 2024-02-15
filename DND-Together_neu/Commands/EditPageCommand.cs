@@ -22,6 +22,7 @@ namespace DND_Together.Commands
             if (_overviewTabViewModel.SelectedCategory != null && _overviewTabViewModel.SelectedCategory.Content != null )
             {
                 TabItem currentPage = (TabItem)(_overviewTabViewModel.SelectedCategory.Content as TabControl).SelectedItem;
+                TabItem currentCategory = _overviewTabViewModel.SelectedCategory;
                 // If a page is selected
                 if(currentPage != null)
                 {
@@ -76,7 +77,25 @@ namespace DND_Together.Commands
                             MessageBox.Show("Es muss eine gültige URL eingegeben werden.");
                             return;
                         }
-                        currentPage.Header = _overviewTabViewModel.PageName;
+
+
+                        foreach(Category category in _overviewTabViewModel.Scene.Categories)
+                        {
+                            if(category.Name == _overviewTabViewModel.SelectedCategory.Header.ToString())
+                            {
+                                foreach(MVVM.Model.Page page in category.Pages)
+                                {
+                                    if(page.Title == currentPage.Header.ToString())
+                                    {
+                                        // Change the Name of the Page 
+                                        page.Title = _overviewTabViewModel.PageName;
+                                        page.Url = page.HomeUrl = _overviewTabViewModel.PageUrl;
+
+                                        currentPage.Header = _overviewTabViewModel.PageName;
+                                    }
+                                }
+                            }
+                        }
 
 
                         _overviewTabViewModel.ContentButtonEditPage = "⚙";
@@ -92,18 +111,6 @@ namespace DND_Together.Commands
                             category.IsEnabled = true;
                         }
 
-                        foreach (Category cat in _overviewTabViewModel.Scene.Categories)
-                        {
-                            foreach (MVVM.Model.Page p in cat.Pages)
-                            {
-                                if (p.Title == currentPage.Header.ToString())
-                                {
-                                    p.Url = _overviewTabViewModel.PageUrl;
-                                    p.HomeUrl = _overviewTabViewModel.PageUrl;
-                                    break;
-                                }
-                            }
-                        }
 
                         _overviewTabViewModel.IsEnabledEditCategory = true;
                         _overviewTabViewModel.IsEnabledOtherElements = true;

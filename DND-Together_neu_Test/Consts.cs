@@ -1,4 +1,4 @@
-﻿using DND_Together_neu.Model;
+﻿using DND_Together.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
