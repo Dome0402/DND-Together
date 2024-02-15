@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DND-Together", "DND-Togethe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DND-Together_neu_Test", "DND-Together_neu_Test\DND-Together_neu_Test.csproj", "{32EE648D-B444-4845-8400-FA7EA3B382FF}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{651ADCD3-50C1-46D9-94C6-DA7BAC892CF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,8 @@ Global
 		{32EE648D-B444-4845-8400-FA7EA3B382FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32EE648D-B444-4845-8400-FA7EA3B382FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32EE648D-B444-4845-8400-FA7EA3B382FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{651ADCD3-50C1-46D9-94C6-DA7BAC892CF5}.Debug|Any CPU.ActiveCfg = Debug
+		{651ADCD3-50C1-46D9-94C6-DA7BAC892CF5}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

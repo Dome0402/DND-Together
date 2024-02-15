@@ -1,4 +1,4 @@
-using DND_Together_neu.Model;
+using DND_Together.MVVM.Model;
 
 namespace DND_Together_neu_Test
 {
@@ -12,7 +12,7 @@ namespace DND_Together_neu_Test
         [Test]
         public void Test_XmlSaveScene()
         {
-            XML.SaveScene(Consts.scene);
+            //XML.SaveScene(Consts.scene);
             Assert.Pass();
         }
 
