@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_F29741BC0776460D802D4502E61C04C2"
+        "MsmKey" = "8:_0967A552891D45EEB578938CCB1BD9DF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -37,6 +37,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -53,6 +69,27 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:C:\\Users\\Dominik\\source\\repos\\DND-Together"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 und x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.8.0.x64"
+                    {
+                    "Name" = "8:.NET Runtime 8.0.1 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.8.0.x64"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -84,7 +121,7 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F29741BC0776460D802D4502E61C04C2"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0967A552891D45EEB578938CCB1BD9DF"
             {
             "SourcePath" = "8:..\\DND-Together_neu\\dnd-icon-13.ico"
             "TargetName" = "8:dnd-icon-13.ico"
@@ -107,6 +144,29 @@
         }
         "FileType"
         {
+            "{5EB83D71-FA18-4901-BE56-DE22E13CC478}:_BCC524F2509A48E6AD82EF017D2AEFEA"
+            {
+            "Name" = "8:dndts"
+            "Description" = "8:"
+            "Extensions" = "8:DNDTS"
+            "MIME" = "8:"
+            "Icon" = "8:_0967A552891D45EEB578938CCB1BD9DF"
+            "IconIndex" = "3:0"
+                "Command"
+                {
+                "Command" = "8:_6890A2A725BA48979C913B5A03143039"
+                }
+                "Verbs"
+                {
+                    "{95C0C507-CBF0-42B8-B119-07219E384A4A}:_621F0FCC6C4247F1A20BAC0F12714D68"
+                    {
+                    "Command" = "8:&Open"
+                    "Verb" = "8:open"
+                    "Arguments" = "8:\"%1\""
+                    "Order" = "3:0"
+                    }
+                }
+            }
         }
         "Folder"
         {
@@ -160,15 +220,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DND-Together"
-        "ProductCode" = "8:{23956452-D576-46D7-8FC0-28825C1CA074}"
-        "PackageCode" = "8:{3F26BB59-D5CD-4A93-A321-BCE3D12435BF}"
+        "ProductCode" = "8:{8EDDC4B5-A34B-4B8F-B73C-F867BD3E7D7E}"
+        "PackageCode" = "8:{B255D6F6-22AC-4600-A4D9-49FD9CE757C8}"
         "UpgradeCode" = "8:{30D092B6-42B9-4CFE-9CC8-9BEB44257C28}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.2.0"
         "Manufacturer" = "8:Dominik Beisecker"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -178,7 +238,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:_F29741BC0776460D802D4502E61C04C2"
+        "ARPPRODUCTICON" = "8:_0967A552891D45EEB578938CCB1BD9DF"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -292,7 +352,7 @@
             "Target" = "8:_6890A2A725BA48979C913B5A03143039"
             "Folder" = "8:_F3EA27C1E15046B6A9E129A25E1FD7BE"
             "WorkingFolder" = "8:_586A30BFAB2F405FBCE931B7E18AD8B3"
-            "Icon" = "8:_F29741BC0776460D802D4502E61C04C2"
+            "Icon" = "8:_0967A552891D45EEB578938CCB1BD9DF"
             "Feature" = "8:"
             }
         }

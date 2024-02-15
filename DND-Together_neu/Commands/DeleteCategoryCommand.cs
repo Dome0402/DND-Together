@@ -39,6 +39,8 @@ namespace DND_Together.Commands
 
                         Debug.Print("Kategorie \"" + _overviewTabViewModel.SelectedCategory.Header.ToString() + "\" gelöscht");
                         _overviewTabViewModel.CategoryTabs = categories;
+
+                        Consts.SceneHasChanged = true;
                     }
                     else
                     {

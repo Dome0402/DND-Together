@@ -31,24 +31,13 @@ namespace DND_Together.Commands
                 Scene scene = new Scene();
 
                 scene.Name = Path.GetFileNameWithoutExtension(saveFileDialog.SafeFileName);
-                foreach (Category category in _overviewTabViewModel.Scene.Categories)
-                {
-                    foreach (MVVM.Model.Page page in category.Pages)
-                    {
-                        foreach (TabItem tabCat in _overviewTabViewModel.CategoryTabs)
-                        {
-                            foreach (TabItem tabPage in ((TabControl)(tabCat.Content)).Items)
-                            {
-                                if(tabPage.Header.ToString() == page.Title)
-                                    page.Url = ((WebView2)tabPage.Content).Source.ToString();
-                            }
-                        }
-                    }
-                }
+                
                 scene = ((Scene)parameter) == null ? _overviewTabViewModel.Scene : (Scene)parameter;
                 XML.SaveScene(scene, saveFileDialog.FileName);
                 _overviewTabViewModel.Path = saveFileDialog.FileName;
                 Application.Current.Windows[0].Title = "D&D Together - " + scene.Name;
+
+                Consts.SceneHasChanged = false;
             }
         }
 

@@ -12,6 +12,7 @@ using Microsoft.Web.WebView2.Wpf;
 using System.IO;
 using System.Security.Policy;
 using Microsoft.Web.WebView2.Core;
+using Page = DND_Together.MVVM.Model.Page;
 
 
 namespace DND_Together.Commands
@@ -26,7 +27,7 @@ namespace DND_Together.Commands
                 LoadSceneAsync((string)parameter);
                 return;
             }
-            if (Consts.SceneHasChanged(_overviewTabViewModel) && MessageBox.Show("Sie haben die Sitzung nicht gespeichert! Ohne Speichern fortfahren?", "Achtung!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            if (Consts.SceneHasChanged && MessageBox.Show("Sie haben die Sitzung nicht gespeichert! Ohne Speichern fortfahren?", "Achtung!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                 return;
             }
@@ -36,6 +37,8 @@ namespace DND_Together.Commands
             if (dialog.ShowDialog() == true)
             {
                 LoadSceneAsync(dialog.FileName);
+
+                Consts.SceneHasChanged = true;
             }
         }
 
@@ -82,6 +85,7 @@ namespace DND_Together.Commands
                         Style = Application.Current.Resources["OuterTabControlItemStyle"] as Style
                     };
                     // For every Page
+                    List<TabItem> pages = new List<TabItem>();
                     foreach (MVVM.Model.Page page in category.Pages)
                     {
                         // Create new TabItem (Page)
@@ -91,15 +95,16 @@ namespace DND_Together.Commands
 
                         // Create and initialize WebView
                         var webView = new WebView2();
-                        Initialize_WebView(webView, new Uri(page.Url));
+                        Consts.Initialize_WebView(webView, new Uri(page.Url));
 
                         
 
                         // Set WebView as Content
                         tabPage.Content = webView;
-
-                        ((TabControl)tab.Content).Items.Add(tabPage);
+                        
+                        pages.Add(tabPage);
                     }
+                    ((TabControl)tab.Content).ItemsSource = pages;
                     // Add the Category to the list
                     categories.Add(tab);
 
@@ -131,14 +136,6 @@ namespace DND_Together.Commands
             {
                 MessageBox.Show("Fehler beim Laden der Szene aufgetreten.\n" + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void Initialize_WebView(WebView2 webView, Uri url)
-        {
-            webView.EnsureCoreWebView2Async(null);
-            
-
-            webView.Source = url;
         }
 
 

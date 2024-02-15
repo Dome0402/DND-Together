@@ -1,10 +1,12 @@
 ﻿using DND_Together.MVVM.Model;
 using DND_Together.MVVM.ViewModels;
+using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -41,7 +43,7 @@ namespace DND_Together.Commands
                     Style = Application.Current.Resources["InnerTabControlItemStyle"] as Style
                 };
                 WebView2 webView = new WebView2();
-                Initialize_WebView(webView, new Uri(_overviewTabViewModel.PageUrl));
+                Consts.Initialize_WebView(webView, new Uri(_overviewTabViewModel.PageUrl));
                 newTabItem.Content = webView;
                 List<TabItem> catPages = new List<TabItem>();
 
@@ -78,13 +80,8 @@ namespace DND_Together.Commands
 
                 _overviewTabViewModel.PageName = "";
                 _overviewTabViewModel.PageUrl = "";
+                Consts.SceneHasChanged = true;
             }
-        }
-
-        private async void Initialize_WebView(WebView2 webView, Uri url)
-        {
-            await webView.EnsureCoreWebView2Async(null);
-            webView.Source = url;
         }
 
         public AddPageCommand(OverviewTabViewModel overviewTabViewModel)

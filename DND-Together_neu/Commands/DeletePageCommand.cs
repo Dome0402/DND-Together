@@ -1,4 +1,5 @@
-﻿using DND_Together.MVVM.ViewModels;
+﻿using DND_Together.MVVM.Model;
+using DND_Together.MVVM.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,6 +28,21 @@ namespace DND_Together.Commands
 
                     List<TabItem> catPages = new List<TabItem>();
 
+                    foreach (Category cat in _overviewTabViewModel.Scene.Categories)
+                    {
+                        if (cat.Name == _overviewTabViewModel.SelectedCategory.Header.ToString())
+                        {
+                            foreach (MVVM.Model.Page p in cat.Pages)
+                            {
+                                if (p.Title == currentPage.Header.ToString())
+                                {
+                                    cat.Pages.Remove(p);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
                     foreach (TabItem p in pages.ItemsSource)
                     {
                         if(p.Header.ToString() != currentPage.Header.ToString())
@@ -35,6 +51,7 @@ namespace DND_Together.Commands
 
                     pages.ItemsSource = catPages;
 
+                    Consts.SceneHasChanged = true;
                 }
             }
 

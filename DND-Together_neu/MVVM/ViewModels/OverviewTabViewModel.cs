@@ -6,6 +6,8 @@ using Microsoft.Web.WebView2.Wpf;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -197,6 +199,11 @@ namespace DND_Together.MVVM.ViewModels
 
 
             OpenSceneCommand = new OpenSceneCommand(this);
+
+
+            // Create AppData folder
+            Debug.Print(Consts.AppDataPath);
+            Directory.CreateDirectory(Consts.AppDataPath);
         }
     }
 }

@@ -88,6 +88,7 @@ namespace DND_Together.Commands
             _overviewTabViewModel.CategoryName = "";
             _overviewTabViewModel.SelectedCategory = _overviewTabViewModel.CategoryTabs.Last();
 
+            Consts.SceneHasChanged = true;
         }
         public AddCategoryCommand(OverviewTabViewModel overviewTabViewModel)
         {

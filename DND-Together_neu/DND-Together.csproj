@@ -11,17 +11,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="dnd-icon-13.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="dnd-icon-13.ico" />
+    <None Remove="TabControlXAML.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="dnd-icon-13.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Content Include="dnd-icon-13.ico" />
+    <Content Include="TabControlXAML.txt" />
   </ItemGroup>
 <!--
   <ItemGroup>

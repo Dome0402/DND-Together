@@ -118,6 +118,8 @@ namespace DND_Together.Commands
 
                         _overviewTabViewModel.PageName = "";
                         _overviewTabViewModel.PageUrl = "";
+
+                        Consts.SceneHasChanged = true;
                     }
                 }
             }
