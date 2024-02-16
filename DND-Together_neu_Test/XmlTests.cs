@@ -1,5 +1,3 @@
-using DND_Together.MVVM.Model;
-
 namespace DND_Together_neu_Test
 {
     public class Tests

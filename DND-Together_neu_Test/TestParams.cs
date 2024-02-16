@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DND_Together_neu_Test
 {
-    public static class Consts
+    public static class TestParams
     {
         public static Scene scene = new Scene
         {
@@ -22,22 +22,26 @@ namespace DND_Together_neu_Test
                         new Page()
                         {
                             Title = "Page 1",
-                            Url = "https://www.google.de"
+                            Url = "https://www.google.de",
+                            HomeUrl = "https://www.google.de"
                         },
                         new Page()
                         {
                             Title = "Page 2",
-                            Url = "https://www.youtube.de"
+                            Url = "https://www.youtube.de",
+                            HomeUrl = "https://www.youtube.de"
                         },
                         new Page()
                         {
                             Title = "Page 3",
-                            Url = "https://www.google.de"
+                            Url = "https://www.google.de",
+                            HomeUrl = "https://www.google.de"
                         },
                         new Page()
                         {
                             Title = "Page 4",
-                            Url = "https://www.youtube.de"
+                            Url = "https://www.youtube.de",
+                            HomeUrl = "https://www.youtube.de"
                         }
                     }
                 },
@@ -49,22 +53,26 @@ namespace DND_Together_neu_Test
                         new Page()
                         {
                             Title = "Page 18",
-                            Url = "https://www.google.de"
+                            Url = "https://www.google.de",
+                            HomeUrl = "https://www.google.de"
                         },
                         new Page()
                         {
                             Title = "Page 23",
-                            Url = "https://www.youtube.de"
+                            Url = "https://www.youtube.de",
+                            HomeUrl = "https://www.youtube.de"
                         },
                         new Page()
                         {
                             Title = "Page 36",
-                            Url = "https://www.google.de"
+                            Url = "https://www.google.de",
+                            HomeUrl = "https://www.google.de"
                         },
                         new Page()
                         {
                             Title = "Page 49",
-                            Url = "https://www.youtube.de"
+                            Url = "https://www.youtube.de",
+                            HomeUrl = "https://www.youtube.de"
                         }
                     }
                 },
@@ -76,26 +84,35 @@ namespace DND_Together_neu_Test
                         new Page()
                         {
                             Title = "Page 185",
-                            Url = "https://www.google.de"
+                            Url = "https://www.google.de",
+                            HomeUrl = "https://www.google.de"
                         },
                         new Page()
                         {
                             Title = "Page 233",
-                            Url = "https://www.youtube.de"
+                            Url = "https://www.youtube.de",
+                            HomeUrl = "https://www.youtube.de"
                         },
                         new Page()
                         {
                             Title = "Page 367",
-                            Url = "https://www.google.de"
+                            Url = "https://www.google.de",
+                            HomeUrl = "https://www.google.de"
                         },
                         new Page()
                         {
                             Title = "Page 494",
-                            Url = "https://www.youtube.de"
+                            Url = "https://www.youtube.de",
+                            HomeUrl = "https://www.youtube.de"
                         }
                     }
                 }
-            }
+            },
+            Version = Consts.XmlVersion
+        };
+        public static OverviewTabViewModel overviewTabViewModel { get; set; } = new OverviewTabViewModel()
+        {
+            Scene = scene
         };
     }
 }
