@@ -23,10 +23,12 @@ namespace DND_Together.Commands
                 _overviewTabViewModel.PageUrl != "" && 
                 _overviewTabViewModel.SelectedCategory != null)
             {
+                // Load everything needed
                 TabControl pages = _overviewTabViewModel.SelectedCategory.Content as TabControl;
                 if(pages == null) pages = new TabControl();
                 if(pages.Items == null) pages.ItemsSource = new List<TabItem>();
 
+                // If the Name for the Page is already existing throw a message box and quit
                 foreach(TabItem page in pages.Items)
                 {
                     if(page.Header.ToString() == _overviewTabViewModel.PageName)
@@ -36,15 +38,15 @@ namespace DND_Together.Commands
                     }
                 }
 
+                // Create TabItem for Page and Initialize WebView
+                TabItem newTabItem = Helper.CreatePageTabItem(_overviewTabViewModel, _overviewTabViewModel.PageName);
 
-                TabItem newTabItem = new()
-                {
-                    Header = _overviewTabViewModel.PageName,
-                    Style = Application.Current.Resources["InnerTabControlItemStyle"] as Style
-                };
                 WebView2 webView = new WebView2();
                 Consts.Initialize_WebView(webView, new Uri(_overviewTabViewModel.PageUrl));
                 newTabItem.Content = webView;
+
+
+                // Add the Page as a TabItem to the selected Category
                 List<TabItem> catPages = new List<TabItem>();
 
                 foreach (Category category in _overviewTabViewModel.Scene.Categories)
@@ -59,7 +61,6 @@ namespace DND_Together.Commands
                         });
                     }
                 }
-
                 foreach (TabItem p in pages.Items)
                 {
                     catPages.Add(p);
@@ -69,13 +70,9 @@ namespace DND_Together.Commands
                 
                 pages.ItemsSource = catPages;
 
-                // List<TabItem> newCategories = _overviewTabViewModel.CategoryTabs.ToList();
-                // _overviewTabViewModel.CategoryTabs.Find(c => c.Header.ToString() == _overviewTabViewModel.SelectedCategory.Header.ToString()).Content = pages;
-                
-                // _overviewTabViewModel.SelectedCategory.Content = pages;
-
                 Debug.Print("Seite \"" + _overviewTabViewModel.PageName + "\" und der URL: \"" + _overviewTabViewModel.PageUrl + "\" wurde erstellt!");
 
+                // Some after-work additions
                 pages.SelectedIndex = pages.Items.Count - 1;
 
                 _overviewTabViewModel.PageName = "";

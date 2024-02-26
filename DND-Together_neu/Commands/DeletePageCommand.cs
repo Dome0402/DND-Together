@@ -17,12 +17,18 @@ namespace DND_Together.Commands
         public override void Execute(object parameter)
         {
             // If a category is selected
-            if (_overviewTabViewModel.SelectedCategory != null && _overviewTabViewModel.SelectedCategory.Content != null)
+            if ((_overviewTabViewModel.SelectedCategory != null && _overviewTabViewModel.SelectedCategory.Content != null) || ((string)parameter != null && (string) parameter != ""))
             {
                 TabItem currentPage = (TabItem)(_overviewTabViewModel.SelectedCategory.Content as TabControl).SelectedItem;
+
+                string deletePage = currentPage.Header.ToString();
+                if((string)parameter != null && (string)parameter != "")
+                    deletePage = (string)parameter;
+
+
                 // If a page is selected
                 if (currentPage != null && 
-                    MessageBox.Show("Sicher, dass die Seite \"" + currentPage.Header.ToString() + "\" gelöscht werden soll?", "Achtung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                    MessageBox.Show("Sicher, dass die Seite \"" + deletePage + "\" gelöscht werden soll?", "Achtung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
                     TabControl pages = _overviewTabViewModel.SelectedCategory.Content as TabControl;
 
@@ -34,7 +40,7 @@ namespace DND_Together.Commands
                         {
                             foreach (MVVM.Model.Page p in cat.Pages)
                             {
-                                if (p.Title == currentPage.Header.ToString())
+                                if (p.Title == deletePage)
                                 {
                                     cat.Pages.Remove(p);
                                     break;
@@ -45,7 +51,7 @@ namespace DND_Together.Commands
 
                     foreach (TabItem p in pages.ItemsSource)
                     {
-                        if(p.Header.ToString() != currentPage.Header.ToString())
+                        if(p.Header.ToString() != deletePage)
                             catPages.Add(p);
                     }
 

@@ -74,25 +74,13 @@ namespace DND_Together.Commands
                 foreach (Category category in scene.Categories)
                 {
                     // Create new TabItem (Category)
-                    TabItem tab = new TabItem
-                    {
-                        Header = category.Name,
-                        Padding = new Thickness(20, 10, 20, 10),
-                        Content = new TabControl()
-                        {
-                            Style = Application.Current.Resources["InnerTabControlStyle"] as Style
-                        },
-                        Style = Application.Current.Resources["OuterTabControlItemStyle"] as Style
-                    };
+                    TabItem tab = Helper.CreateCategoryTabItem(_overviewTabViewModel, category.Name);
                     // For every Page
                     List<TabItem> pages = new List<TabItem>();
                     foreach (MVVM.Model.Page page in category.Pages)
                     {
                         // Create new TabItem (Page)
-                        TabItem tabPage = new TabItem();
-                        tabPage.Header = page.Title;
-                        tabPage.Style = Application.Current.Resources["InnerTabControlItemStyle"] as Style;
-
+                        TabItem tabPage = Helper.CreatePageTabItem(_overviewTabViewModel, page.Title);
                         // Create and initialize WebView
                         var webView = new WebView2();
                         Consts.Initialize_WebView(webView, new Uri(page.Url));
@@ -114,6 +102,7 @@ namespace DND_Together.Commands
                 _overviewTabViewModel.CategoryName = "";
                 _overviewTabViewModel.SelectedCategory = _overviewTabViewModel.CategoryTabs.Last();
 
+                // Change 
                 Application.Current.Windows[0].Title = "D&D Together - " + scene.Name;
                 _overviewTabViewModel.Scene = scene;
 
@@ -130,6 +119,7 @@ namespace DND_Together.Commands
                     scene.Version = Consts.XmlVersion;
                     _overviewTabViewModel.SaveSceneCommand.Execute(scene);
                 }
+                Consts.SceneHasChanged = false;
 
             }
             catch (Exception ex)

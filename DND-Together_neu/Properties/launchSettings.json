@@ -2,7 +2,7 @@
   "profiles": {
     "DND-Together": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\Dominik\\Desktop\\DND Together\\Data\\Dragon of Icespire Peak.dndts\""
+      "commandLineArgs": "\"E:\\Nextcloud\\Dokumente\\DND Together\\Data\\Dragon of Icespire Peak.dndts\""
     }
   }
 }

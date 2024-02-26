@@ -54,26 +54,7 @@ namespace DND_Together.Commands
                     }
                 }
             }
-            TabItem newTabItem = new TabItem
-            {
-                Header = catName,
-                Padding = new Thickness(20, 10, 20, 10),
-                Content = new TabControl()
-                {
-                    Style = Application.Current.Resources["InnerTabControlStyle"] as Style
-                },
-                Style = Application.Current.Resources["OuterTabControlItemStyle"] as Style,
-                ContextMenu = new ContextMenu()
-                {
-                    Items = 
-                    {
-                        new MenuItem()
-                        {
-                            Header = "Löschen (W.I.P.)"
-                        },
-                    }
-                }
-            };
+            TabItem newTabItem = Helper.CreateCategoryTabItem(_overviewTabViewModel, catName);
             // newTabItem.SetBinding(Button.IsEnabledProperty, "IsEnabledOtherElements");
             categories.Add(newTabItem);
             _overviewTabViewModel.CategoryTabs = categories;

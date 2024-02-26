@@ -17,35 +17,37 @@ namespace DND_Together.Commands
         public override void Execute(object parameter)
         {
 
-            if(_overviewTabViewModel.SelectedCategory != null)
+            if(_overviewTabViewModel.SelectedCategory != null || (string)parameter != null)
             {
-                if(MessageBox.Show("Sicher, dass die Kategorie \"" + _overviewTabViewModel.SelectedCategory.Header.ToString() + "\" gelöscht werden soll?", "Achtung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                string deleteCategory = _overviewTabViewModel.SelectedCategory.Header.ToString();
+                if ((string)parameter != null)
+                    deleteCategory = (string)parameter;
+
+                if(MessageBox.Show("Sicher, dass die Kategorie \"" + deleteCategory + "\" gelöscht werden soll?", "Achtung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
                     List<TabItem> categories = _overviewTabViewModel.CategoryTabs.ToList();
-                    if (categories.Contains(_overviewTabViewModel.SelectedCategory))
+
+                    // Delete Category from local scene object
+                    foreach (Category category in _overviewTabViewModel.Scene.Categories)
                     {
-                        // Delete Category from local scene object
-                        foreach (Category category in _overviewTabViewModel.Scene.Categories)
+                        if (category.Name == deleteCategory)
                         {
-                            if (category.Name == _overviewTabViewModel.SelectedCategory.Header.ToString())
-                            {
-                                _overviewTabViewModel.Scene.Categories.Remove(category);
-                                break;
-                            }
+                            _overviewTabViewModel.Scene.Categories.Remove(category);
+                            TabItem tabFound = categories.Find(t => t.Header.ToString() == deleteCategory);
+                            categories.Remove(tabFound);
+                            break;
                         }
-
-                        // Delete Category from ItemsSource of TabControl
-                        categories.Remove(_overviewTabViewModel.SelectedCategory);
-
-                        Debug.Print("Kategorie \"" + _overviewTabViewModel.SelectedCategory.Header.ToString() + "\" gelöscht");
-                        _overviewTabViewModel.CategoryTabs = categories;
-
-                        Consts.SceneHasChanged = true;
                     }
-                    else
-                    {
-                        Debug.Print("Kategorie konnte nicht gelöscht werden.");
-                    }
+
+                    // (deprecated) Delete Category from ItemsSource of TabControl
+                    // categories.Remove(_overviewTabViewModel.SelectedCategory);
+
+
+
+                    Debug.Print("Kategorie \"" + _overviewTabViewModel.SelectedCategory.Header.ToString() + "\" gelöscht");
+                    _overviewTabViewModel.CategoryTabs = categories;
+
+                    Consts.SceneHasChanged = true;
                 }
                 
             }
