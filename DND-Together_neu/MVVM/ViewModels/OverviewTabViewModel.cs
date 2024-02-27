@@ -159,6 +159,10 @@ namespace DND_Together.MVVM.ViewModels
         public ICommand CategoryNameTextBoxOnEnterCommand { get; }
         public ICommand GoHomeCommand { get; }
 
+        public ICommand MoveCategoryUpCommand { get; }
+        public ICommand MoveCategoryDownCommand { get; }
+        public ICommand MovePageLeftCommand { get; }
+        public ICommand MovePageRightCommand { get; }
 
         //
         // Local Variables
@@ -188,6 +192,11 @@ namespace DND_Together.MVVM.ViewModels
 
             CategoryNameTextBoxOnEnterCommand = new CategoryNameTextBoxOnEnter(this);
             GoHomeCommand = new GoHomeCommand(this);
+
+            MoveCategoryDownCommand = new MoveCategoryDownCommand(this);
+            MoveCategoryUpCommand = new MoveCategoryUpCommand(this);
+            MovePageLeftCommand = new MovePageLeftCommand(this);
+            MovePageRightCommand = new MovePageRightCommand(this);
 
 
             IsEnabledEditCategory = true;

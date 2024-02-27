@@ -30,11 +30,15 @@ namespace DND_Together.MVVM.Model
                         new MenuItem()
                         {
                             Header = "⮝ Nach Oben",
+                            Command = _overviewTabViewModel.MoveCategoryUpCommand,
+                            CommandParameter = name
 
                         },
                         new MenuItem()
                         {
-                            Header = "⮟ Nach Unten"
+                            Header = "⮟ Nach Unten",
+                            Command = _overviewTabViewModel.MoveCategoryDownCommand,
+                            CommandParameter = name
                         },
                         new Separator(),
                         new MenuItem()
@@ -60,11 +64,15 @@ namespace DND_Together.MVVM.Model
                     {
                         new MenuItem()
                         {
-                            Header = "⮜ Nach links"
+                            Header = "⮜ Nach links",
+                            Command = _overviewTabViewModel.MovePageLeftCommand,
+                            CommandParameter = name
                         },
                         new MenuItem()
                         {
-                            Header = "⮞ Nach Rechts"
+                            Header = "⮞ Nach Rechts",
+                            Command = _overviewTabViewModel.MovePageRightCommand,
+                            CommandParameter = name
                         },
                         new Separator(),
                         new MenuItem()
