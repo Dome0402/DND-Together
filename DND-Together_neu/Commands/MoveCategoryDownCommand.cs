@@ -36,7 +36,6 @@ namespace DND_Together.Commands
             // If Category is already on bottom of the list
             if (foundIndex == _overviewTabViewModel.CategoryTabs.Count - 1)
             {
-                MessageBox.Show("Die Kategorie ist bereits ganz unten.", "Warnung", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 

@@ -36,7 +36,6 @@ namespace DND_Together.Commands
             // If Category is already on top of the list
             if(foundIndex == 0)
             {
-                MessageBox.Show("Die Kategorie ist bereits ganz oben.", "Warnung", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 

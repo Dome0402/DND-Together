@@ -1,5 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup Label="Globals">
+    <WebView2UseWinRT>False</WebView2UseWinRT>
+  </PropertyGroup>
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -7,6 +11,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <IncludeSymbols>False</IncludeSymbols>
+    <StartupObject>DND_Together.App</StartupObject>
     <ApplicationIcon>dnd-icon-13.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -18,7 +24,6 @@
     <Resource Include="dnd-icon-13.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="dnd-icon-13.ico" />
     <Content Include="TabControlXAML.txt" />
   </ItemGroup>
 <!--
