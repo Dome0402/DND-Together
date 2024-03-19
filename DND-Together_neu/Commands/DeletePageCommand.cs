@@ -19,19 +19,19 @@ namespace DND_Together.Commands
             // If a category is selected
             if ((_overviewTabViewModel.SelectedCategory != null && _overviewTabViewModel.SelectedCategory.Content != null) || ((string)parameter != null && (string) parameter != ""))
             {
-                TabItem currentPage = (TabItem)(_overviewTabViewModel.SelectedCategory.Content as TabControl).SelectedItem;
-
-                string deletePage = currentPage.Header.ToString();
+                string deletePage;
                 if((string)parameter != null && (string)parameter != "")
                     deletePage = (string)parameter;
+                else
+                    deletePage = ((_overviewTabViewModel.SelectedCategory.Content as TabControl).SelectedItem as TabItem).Header.ToString();
 
 
-                // If a page is selected
-                if (currentPage != null && 
+                // If Message Box was confirmed
+                if ((deletePage != null && deletePage != "") && 
                     MessageBox.Show("Sicher, dass die Seite \"" + deletePage + "\" gelöscht werden soll?", "Achtung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
                     TabControl pages = _overviewTabViewModel.SelectedCategory.Content as TabControl;
-
+                    int selectedPageIndex = (_overviewTabViewModel.SelectedCategory.Content as TabControl).SelectedIndex;
                     List<TabItem> catPages = new List<TabItem>();
 
                     foreach (Category cat in _overviewTabViewModel.Scene.Categories)

@@ -164,6 +164,8 @@ namespace DND_Together.MVVM.ViewModels
         public ICommand MovePageLeftCommand { get; }
         public ICommand MovePageRightCommand { get; }
 
+        public ICommand AddCurrentPageCommand { get; }
+
         //
         // Local Variables
         //
@@ -198,6 +200,7 @@ namespace DND_Together.MVVM.ViewModels
             MovePageLeftCommand = new MovePageLeftCommand(this);
             MovePageRightCommand = new MovePageRightCommand(this);
 
+            AddCurrentPageCommand = new AddCurrentPageCommand(this);
 
             IsEnabledEditCategory = true;
             IsEnabledEditPage = true;
