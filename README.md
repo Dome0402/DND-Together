@@ -1,5 +1,7 @@
 # DND-Together
 
+Das Programm ist zur besseren Organisation von Websiten u.a. für Dungeons & Dragons Spielleiter.
+
 ## Funktionen
 
 ### Kategorie hinzufügen
