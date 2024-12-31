@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="dnd-icon-13.ico">
+    <EmbeddedResource Include="dnd-icon-13.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </EmbeddedResource>
     <Content Include="TabControlXAML.txt" />
   </ItemGroup>
 <!--

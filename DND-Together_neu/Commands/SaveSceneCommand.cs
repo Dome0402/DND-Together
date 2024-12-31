@@ -30,9 +30,9 @@ namespace DND_Together.Commands
             {
                 Scene scene = new Scene();
 
+                scene = ((Scene)parameter) == null ? _overviewTabViewModel.Scene : (Scene)parameter;
                 scene.Name = Path.GetFileNameWithoutExtension(saveFileDialog.SafeFileName);
                 
-                scene = ((Scene)parameter) == null ? _overviewTabViewModel.Scene : (Scene)parameter;
                 XML.SaveScene(scene, saveFileDialog.FileName);
                 _overviewTabViewModel.Path = saveFileDialog.FileName;
                 Application.Current.Windows[0].Title = "D&D Together - " + scene.Name;

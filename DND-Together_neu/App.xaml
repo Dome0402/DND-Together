@@ -67,10 +67,10 @@
                     <ControlTemplate TargetType="TabItem">
                         <Border Name="Border" BorderThickness="2,2,0,2" BorderBrush="#9FC0F5" CornerRadius="4,0,0,4" Margin="5,2,0,2" Padding="20,10,20,10">
                             <ContentPresenter x:Name="ContentSite"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    ContentSource="Header"
-                    Margin="10,2"/>
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                ContentSource="Header"
+                                Margin="10,2"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
@@ -90,10 +90,10 @@
                     <ControlTemplate TargetType="TabItem">
                         <Border Name="Border" BorderThickness="2,2,2,0" BorderBrush="#9FC0F5" CornerRadius="4,4,0,0" Margin="2,0">
                             <ContentPresenter x:Name="ContentSite"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            ContentSource="Header"
-            Margin="10,2"/>
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                ContentSource="Header"
+                                Margin="10,2"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">

@@ -55,20 +55,22 @@ namespace DND_Together.Commands
             List<MVVM.Model.Page> pages = new List<MVVM.Model.Page>();
             for (int i = 0; i < tabControl.Items.Count; i++)
             {
+                // Die nächste Seite, rechts von der zu verschiebenden
                 if (i == pageIndex + 1)
                 {
                     tabItems.Add((TabItem)((TabControl)(_overviewTabViewModel.SelectedCategory.Content)).Items[pageIndex]);
                     pages.Add(_overviewTabViewModel.Scene.Categories[categoryIndex].Pages[pageIndex]);
                     continue;
                 }
+                // Die zu verschiebende Seite
                 if (i == pageIndex)
                 {
                     tabItems.Add((TabItem)((TabControl)(_overviewTabViewModel.SelectedCategory.Content)).Items[i + 1]);
-                    pages.Add(_overviewTabViewModel.Scene.Categories[pageIndex].Pages[i + 1]);
+                    pages.Add(_overviewTabViewModel.Scene.Categories[categoryIndex].Pages[pageIndex + 1]);
                     continue;
                 }
                 tabItems.Add((TabItem)((TabControl)(_overviewTabViewModel.SelectedCategory.Content)).Items[i]);
-                pages.Add(_overviewTabViewModel.Scene.Categories[pageIndex].Pages[i]);
+                pages.Add(_overviewTabViewModel.Scene.Categories[categoryIndex].Pages[i]);
             }
 
             ((TabControl)_overviewTabViewModel.SelectedCategory.Content).ItemsSource = tabItems;

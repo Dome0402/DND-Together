@@ -15,7 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_0967A552891D45EEB578938CCB1BD9DF"
+        "MsmKey" = "8:_32CBEB5069314B50BCD024A72A580F7B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D10E5F0CFDC943D4B1C33640F43FE47F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -121,44 +127,24 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0967A552891D45EEB578938CCB1BD9DF"
-            {
-            "SourcePath" = "8:..\\DND-Together_neu\\dnd-icon-13.ico"
-            "TargetName" = "8:dnd-icon-13.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_586A30BFAB2F405FBCE931B7E18AD8B3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
-            "{5EB83D71-FA18-4901-BE56-DE22E13CC478}:_BCC524F2509A48E6AD82EF017D2AEFEA"
+            "{5EB83D71-FA18-4901-BE56-DE22E13CC478}:_1CCEF3AEE69C49E29E45A3E533394A9F"
             {
             "Name" = "8:dndts"
             "Description" = "8:"
             "Extensions" = "8:DNDTS"
             "MIME" = "8:"
-            "Icon" = "8:_0967A552891D45EEB578938CCB1BD9DF"
-            "IconIndex" = "3:0"
+            "Icon" = "8:_32CBEB5069314B50BCD024A72A580F7B"
+            "IconIndex" = "3:32512"
                 "Command"
                 {
-                "Command" = "8:_6890A2A725BA48979C913B5A03143039"
+                "Command" = "8:_D10E5F0CFDC943D4B1C33640F43FE47F"
                 }
                 "Verbs"
                 {
-                    "{95C0C507-CBF0-42B8-B119-07219E384A4A}:_621F0FCC6C4247F1A20BAC0F12714D68"
+                    "{95C0C507-CBF0-42B8-B119-07219E384A4A}:_4B9BC8C9F49249FA8F5FD5DFDC0C580E"
                     {
                     "Command" = "8:&Open"
                     "Verb" = "8:open"
@@ -220,15 +206,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DND-Together"
-        "ProductCode" = "8:{13434C33-DE05-4ADB-A946-7E48017EDE7F}"
-        "PackageCode" = "8:{96CAF57B-DA02-425E-A5AE-C587100E6FA2}"
+        "ProductCode" = "8:{15530ECF-E95A-4CC0-9818-AE8F70F2BC97}"
+        "PackageCode" = "8:{2203169F-3A17-4318-B329-D9C292B3F58A}"
         "UpgradeCode" = "8:{30D092B6-42B9-4CFE-9CC8-9BEB44257C28}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.3.0"
+        "ProductVersion" = "8:1.5.0"
         "Manufacturer" = "8:Dominik Beisecker"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -238,7 +224,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:_0967A552891D45EEB578938CCB1BD9DF"
+        "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -341,18 +327,18 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_0CC0ED12322542529AD7149ECF2969FF"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_566E35F97632468DA32F085158A0790F"
             {
-            "Name" = "8:DnD-Together"
+            "Name" = "8:DND-Together"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
+            "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_6890A2A725BA48979C913B5A03143039"
+            "Target" = "8:_D10E5F0CFDC943D4B1C33640F43FE47F"
             "Folder" = "8:_F3EA27C1E15046B6A9E129A25E1FD7BE"
             "WorkingFolder" = "8:_586A30BFAB2F405FBCE931B7E18AD8B3"
-            "Icon" = "8:_0967A552891D45EEB578938CCB1BD9DF"
+            "Icon" = "8:_32CBEB5069314B50BCD024A72A580F7B"
             "Feature" = "8:"
             }
         }
@@ -754,7 +740,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_64D14FE17AF54477B876491DF89CE9DD"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_32CBEB5069314B50BCD024A72A580F7B"
             {
             "SourcePath" = "8:..\\DND-Together_neu\\obj\\Release\\net8.0-windows\\DND-Together.dll"
             "TargetName" = "8:"
@@ -774,7 +760,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:Release|Any CPU"
+            "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{CB8C02CB-F948-425B-83C6-0C844354CC6E}"
             "ShowKeyOutput" = "11:TRUE"
@@ -782,7 +768,7 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6890A2A725BA48979C913B5A03143039"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D10E5F0CFDC943D4B1C33640F43FE47F"
             {
             "SourcePath" = "8:..\\DND-Together_neu\\obj\\Release\\net8.0-windows\\apphost.exe"
             "TargetName" = "8:"

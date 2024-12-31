@@ -38,7 +38,7 @@ namespace DND_Together.Commands
             {
                 LoadSceneAsync(dialog.FileName);
 
-                Consts.SceneHasChanged = true;
+                Consts.SceneHasChanged = false;
             }
         }
 
