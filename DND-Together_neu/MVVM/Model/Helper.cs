@@ -43,6 +43,21 @@ namespace DND_Together.MVVM.Model
                         new Separator(),
                         new MenuItem()
                         {
+                            Header = "Farbe",
+                            Items = {
+                                new MenuItem()
+                                {
+                                    Header = "Schriftfarbe"
+                                },
+                                new MenuItem()
+                                {
+                                    Header = "Hintergrundfarbe"
+                                }
+                            }
+                        },
+                        new Separator(),
+                        new MenuItem()
+                        {
                             Header = "Kategorie löschen",
                             Command = _overviewTabViewModel.DeleteCategoryCommand,
                             CommandParameter = name

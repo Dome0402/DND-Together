@@ -6,6 +6,7 @@ using Microsoft.Web.WebView2.Wpf;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -26,8 +27,8 @@ namespace DND_Together.MVVM.ViewModels
         //
         
         // Binded from Category TabControl -> ItemsSource
-        private List<TabItem> _categoryTabs;
-        public List<TabItem> CategoryTabs
+        private ObservableCollection<TabItem> _categoryTabs;
+        public ObservableCollection<TabItem> CategoryTabs
         {
             get { return _categoryTabs; }
             set
@@ -166,6 +167,8 @@ namespace DND_Together.MVVM.ViewModels
 
         public ICommand AddCurrentPageCommand { get; }
 
+        public ICommand TabControlDropCommand { get; }
+
         //
         // Local Variables
         //
@@ -201,6 +204,7 @@ namespace DND_Together.MVVM.ViewModels
             MovePageRightCommand = new MovePageRightCommand(this);
 
             AddCurrentPageCommand = new AddCurrentPageCommand(this);
+            TabControlDropCommand = new TabControlDropCommand(this);
 
             IsEnabledEditCategory = true;
             IsEnabledEditPage = true;

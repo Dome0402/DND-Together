@@ -2,6 +2,7 @@
 using DND_Together.MVVM.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace DND_Together.Commands
             }
 
             // In any other case the category can be moved
-            List<TabItem> tabItems = new List<TabItem>();
+            ObservableCollection<TabItem> tabItems = new ObservableCollection<TabItem>();
             List<Category> categories = new List<Category>();
             for(int i = 0; i < _overviewTabViewModel.CategoryTabs.Count; i++)
             {

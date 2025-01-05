@@ -3,6 +3,7 @@ using DND_Together.MVVM.ViewModels;
 using Microsoft.Web.WebView2.Core;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection.PortableExecutable;
@@ -40,9 +41,9 @@ namespace DND_Together.Commands
 
             if (_overviewTabViewModel.CategoryTabs == null)
             {
-                _overviewTabViewModel.CategoryTabs = new List<TabItem>();
+                _overviewTabViewModel.CategoryTabs = new ObservableCollection<TabItem>();
             }
-            List<TabItem> categories = _overviewTabViewModel.CategoryTabs.ToList();
+            ObservableCollection<TabItem> categories = _overviewTabViewModel.CategoryTabs;
             if(categories != null && categories.Count() > 0)
             {
                 foreach (TabItem category in categories)

@@ -2,6 +2,7 @@
 using DND_Together.MVVM.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace DND_Together.Commands
 
                 if(MessageBox.Show("Sicher, dass die Kategorie \"" + deleteCategory + "\" gelöscht werden soll?", "Achtung", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
-                    List<TabItem> categories = _overviewTabViewModel.CategoryTabs.ToList();
+                    ObservableCollection<TabItem> categories = _overviewTabViewModel.CategoryTabs;
 
                     // Delete Category from local scene object
                     foreach (Category category in _overviewTabViewModel.Scene.Categories)
@@ -33,7 +34,7 @@ namespace DND_Together.Commands
                         if (category.Name == deleteCategory)
                         {
                             _overviewTabViewModel.Scene.Categories.Remove(category);
-                            TabItem tabFound = categories.Find(t => t.Header.ToString() == deleteCategory);
+                            TabItem tabFound = categories.FirstOrDefault(t => t.Header.ToString() == deleteCategory);
                             categories.Remove(tabFound);
                             break;
                         }

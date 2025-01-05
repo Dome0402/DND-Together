@@ -13,6 +13,7 @@ using System.IO;
 using System.Security.Policy;
 using Microsoft.Web.WebView2.Core;
 using Page = DND_Together.MVVM.Model.Page;
+using System.Collections.ObjectModel;
 
 
 namespace DND_Together.Commands
@@ -68,7 +69,7 @@ namespace DND_Together.Commands
                 // Load Scene from file to Scene object
                 Scene scene = XML.LoadScene(fileName);
                 _overviewTabViewModel.Path = fileName;
-                List<TabItem> categories = new();
+                ObservableCollection<TabItem> categories = new();
 
                 // For every Category
                 foreach (Category category in scene.Categories)
